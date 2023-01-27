@@ -3,6 +3,9 @@ package com.curuto.footballdata.utils
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.ktx.BuildConfig
 
 
@@ -38,4 +41,8 @@ fun logE(text: String?, exception: Throwable) {
     if (text?.isNotEmpty()!!) {
         Log.e(TAG_E, text, exception)
     }
+}
+
+fun ViewGroup.inflate(layoutRes: Int): View {
+    return LayoutInflater.from(context).inflate(layoutRes, this, false)
 }
