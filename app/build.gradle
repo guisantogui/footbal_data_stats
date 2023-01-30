@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'com.google.dagger.hilt.android'
     id 'realm-android'
 }
 
@@ -36,7 +35,6 @@ android {
     dataBinding {
         enabled = true
     }
-
     buildFeatures {
         viewBinding true
     }
@@ -52,9 +50,9 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    //HILT
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-compiler:2.44"
+    //DAGGER
+    implementation 'com.google.dagger:dagger:2.44'
+    kapt 'com.google.dagger:dagger-compiler:2.44'
     //DATA-BINDING
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     //REALM

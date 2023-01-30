@@ -6,12 +6,12 @@ import com.curuto.footballdata.utils.FIRST_RUN
 import com.curuto.footballdata.utils.getStringSharedPreferences
 import com.curuto.footballdata.utils.logD
 import com.curuto.footballdata.utils.updateSharedPreferences
-import dagger.hilt.android.HiltAndroidApp
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
-@HiltAndroidApp
 class FootballDataApplication : Application() {
+
+    val myComp = DaggerFootbalDataApplicationComponent.create()
 
     override fun onCreate() {
         super.onCreate()

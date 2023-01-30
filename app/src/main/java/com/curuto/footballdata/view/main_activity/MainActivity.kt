@@ -2,16 +2,15 @@ package com.curuto.footballdata.view.main_activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.curuto.footballdata.FootballDataApplication
 import com.curuto.footballdata.databinding.ActivityMainBinding
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapter
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
 
-    @Inject var championshipAdapter : ChampionshipAdapter? = null
+    lateinit var championshipAdapter : ChampionshipAdapter
+    //@Inject lateinit var myNumber: Championship
 
     lateinit var binding: ActivityMainBinding
 
@@ -20,6 +19,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        //Não quero injetar aplicação
+        (applicationContext as FootballDataApplication).myComp.inject(this)
+
+
+
 
         binding.rvChampionshipList.adapter = championshipAdapter
 

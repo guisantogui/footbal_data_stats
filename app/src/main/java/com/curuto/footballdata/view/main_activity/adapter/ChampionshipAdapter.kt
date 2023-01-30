@@ -6,10 +6,10 @@ import com.curuto.footballdata.databinding.RowItemChampionshipBinding
 import com.curuto.footballdata.model.Championship
 import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter
-import javax.inject.Inject
+
 
 open class ChampionshipAdapter
-                @Inject constructor(var championshipData: OrderedRealmCollection<Championship>):
+                constructor(var championshipData: OrderedRealmCollection<Championship>):
                                     RealmRecyclerViewAdapter<Championship, ChampionshipViewHolder>
                                                                     (championshipData, true) {
 
