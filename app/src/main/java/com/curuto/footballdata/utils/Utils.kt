@@ -26,7 +26,7 @@ fun updateSyncSharedPreferences(context: Context, tag: String, value: String) : 
 }
 
 fun logD(text: String?) {
-    if (text?.isNotEmpty()!! && BuildConfig.DEBUG) {
+    if (text?.isNotEmpty()!!) {
         Log.d(TAG_D, text)
     }
 }

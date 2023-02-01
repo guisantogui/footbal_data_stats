@@ -8,6 +8,7 @@ import com.curuto.footballdata.utils.logD
 import com.curuto.footballdata.utils.updateSharedPreferences
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import java.util.*
 
 class FootballDataApplication : Application() {
 
@@ -21,16 +22,20 @@ class FootballDataApplication : Application() {
         val config = RealmConfiguration.Builder()
             .name("footballdata.db")
             .schemaVersion(1)
-            .allowQueriesOnUiThread(false)
+            .allowQueriesOnUiThread(true) //TODO: REMOVER
+            .allowWritesOnUiThread(true) //TODO: REMOVER
             .deleteRealmIfMigrationNeeded()
             .build()
 
         Realm.setDefaultConfiguration(config)
 
-        val isFirstRun = getStringSharedPreferences(this, FIRST_RUN).contentEquals("1")
-        if(isFirstRun) {
+        //TODO: Corrigir condicional IF
+        val isFirstRun = getStringSharedPreferences(this, FIRST_RUN) == "2"
+        if(true) {
             initDatabase()
             updateSharedPreferences(this, FIRST_RUN, "1")
+
+            logD("DATABASE INITIALIZED")
         }
 
         logD("Custom Application onCreate() Finished")
@@ -42,8 +47,13 @@ class FootballDataApplication : Application() {
     private fun initDatabase(){
         val championshipList = resources.getStringArray(R.array.championship_list)
 
+        logD("Time 0 " + championshipList[0])
+
         Realm.getDefaultInstance().executeTransaction { r -> r
-            championshipList.forEach { x -> r.insert(Championship(x)) }
-        }
+            championshipList.forEach {
+                    x -> r.insert(Championship(x, UUID.randomUUID().toString())) }
+            }
+
+
     }
 }
