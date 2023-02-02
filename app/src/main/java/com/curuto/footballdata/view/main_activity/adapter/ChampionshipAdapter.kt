@@ -7,11 +7,13 @@ import com.curuto.footballdata.model.Championship
 import dagger.Module
 import dagger.Provides
 import io.realm.OrderedRealmCollection
+import io.realm.Realm
 import io.realm.RealmRecyclerViewAdapter
+import javax.inject.Inject
 
 
 open class ChampionshipAdapter
-                constructor(var championshipData: OrderedRealmCollection<Championship>):
+        @Inject constructor(var championshipData: OrderedRealmCollection<Championship>):
                                     RealmRecyclerViewAdapter<Championship, ChampionshipViewHolder>
                                                                     (championshipData, true) {
 
@@ -25,13 +27,13 @@ open class ChampionshipAdapter
         holder.bind(championshipData[position])
     }
 }
-/*
+
 @Module
-open class ChampionshipAdapterModule(){
+open class ChampionshipAdapterModule{
 
     @Provides
-    open fun getEmptyAdapter(){
-        //return ChampionshipAdapter()
+    open fun getEmptyAdapter(): ChampionshipAdapter {
+        val all = Realm.getDefaultInstance().where(Championship::class.java).findAll()
+        return ChampionshipAdapter(all)
     }
 }
-*/

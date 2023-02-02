@@ -29,9 +29,8 @@ class FootballDataApplication : Application() {
 
         Realm.setDefaultConfiguration(config)
 
-        //TODO: Corrigir condicional IF
-        val isFirstRun = getStringSharedPreferences(this, FIRST_RUN) == "2"
-        if(true) {
+        val isFirstRun = getStringSharedPreferences(this, FIRST_RUN) != "1"
+        if(isFirstRun) {
             initDatabase()
             updateSharedPreferences(this, FIRST_RUN, "1")
 
