@@ -9,6 +9,15 @@
     android:layout_margin="@dimen/root_item_default_margin"
     tools:context=".view.main_activity.MainActivity">
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/acb_add_championship"
+        android:layout_gravity="center"
+        android:text="Add Championship"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_championship_list"
         android:layout_width="match_parent"

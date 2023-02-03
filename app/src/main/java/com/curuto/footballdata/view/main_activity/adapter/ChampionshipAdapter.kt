@@ -29,11 +29,11 @@ open class ChampionshipAdapter
 }
 
 @Module
-open class ChampionshipAdapterModule{
+open class ChampionshipAdapterModule {
 
     @Provides
     open fun getEmptyAdapter(): ChampionshipAdapter {
-        val all = Realm.getDefaultInstance().where(Championship::class.java).findAll()
+        val all = Realm.getDefaultInstance().where(Championship::class.java).findAllAsync()
         return ChampionshipAdapter(all)
     }
 }

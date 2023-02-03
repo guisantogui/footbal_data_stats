@@ -22,8 +22,7 @@ class FootballDataApplication : Application() {
         val config = RealmConfiguration.Builder()
             .name("footballdata.db")
             .schemaVersion(1)
-            .allowQueriesOnUiThread(true) //TODO: REMOVER
-            .allowWritesOnUiThread(true) //TODO: REMOVER
+            //.allowQueriesOnUiThread(true)
             .deleteRealmIfMigrationNeeded()
             .build()
 
@@ -48,7 +47,7 @@ class FootballDataApplication : Application() {
 
         logD("Time 0 " + championshipList[0])
 
-        Realm.getDefaultInstance().executeTransaction { r -> r
+        Realm.getDefaultInstance().executeTransactionAsync { r -> r
             championshipList.forEach {
                     x -> r.insert(Championship(x, UUID.randomUUID().toString())) }
             }
