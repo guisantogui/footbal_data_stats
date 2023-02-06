@@ -19,12 +19,17 @@ class ChampionshipViewModel {
 
     fun addChampionship(name: String){
         realm.executeTransactionAsync{
-            it.insert(Championship(name, UUID.randomUUID().toString()))
+            it.insert(Championship(name, "", UUID.randomUUID().toString()))
         }
     }
 
     fun retText(): String{
         return "VIEWMODEL WORKING!!"
+    }
+
+    fun donwloadChampionshipData() {
+
+        TODO("Not yet implemented")
     }
 }
 

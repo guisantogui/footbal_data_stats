@@ -49,7 +49,7 @@ class FootballDataApplication : Application() {
 
         Realm.getDefaultInstance().executeTransactionAsync { r -> r
             championshipList.forEach {
-                    x -> r.insert(Championship(x, UUID.randomUUID().toString())) }
+                    x -> r.insert(Championship(x, "", UUID.randomUUID().toString())) }
             }
 
 

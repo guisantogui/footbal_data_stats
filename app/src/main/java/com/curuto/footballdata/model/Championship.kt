@@ -10,10 +10,11 @@ import javax.inject.Inject
 @RealmClass
 open class Championship @Inject constructor (
             var name: String,
+            var dataUrl: String,
             @PrimaryKey var id: String
             ) : RealmObject() {
 
-    constructor(): this("", "")
+    constructor(): this("","", "")
 }
 
 
@@ -22,6 +23,6 @@ open class ChampionshipModule {
 
     @Provides
     open fun getEmptyChampionship(): Championship{
-        return Championship("", "")
+        return Championship("", "","")
     }
 }

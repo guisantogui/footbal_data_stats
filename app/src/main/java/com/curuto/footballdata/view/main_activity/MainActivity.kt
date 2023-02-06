@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-
+    
     @Inject lateinit var championshipAdapter : ChampionshipAdapter
     @Inject lateinit var championship: Championship
     @Inject lateinit var championshipViewModel: ChampionshipViewModel
@@ -39,15 +39,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.rvChampionshipList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         logD(championshipViewModel.retText())
-        binding.acbAddChampionship.setOnClickListener(this)
+        //binding.acbAddChampionship.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
         when(p0?.id){
-            R.id.acb_add_championship -> {
+            /*R.id.acb_add_championship -> {
                 championshipViewModel.addChampionship("SUPER LIGA VIEW MODEL")
                 logD("CLICKED ADD CHAMPS")
-            }
+            }*/
         }
     }
 }
