@@ -12,7 +12,6 @@ class ChampionshipViewHolder(itemView: RowItemChampionshipBinding) : RecyclerVie
     val ibDownloadData = itemView.ibDownloadData
 
     fun bind(championship: Championship, onClickListener: View.OnClickListener){
-
         tvChampionship.text = championship.name
         ibDownloadData.setOnClickListener(onClickListener)
     }

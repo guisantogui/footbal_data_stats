@@ -8,6 +8,7 @@ import com.curuto.footballdata.FootballDataApplication
 import com.curuto.footballdata.databinding.ActivityMainBinding
 import com.curuto.footballdata.model.Championship
 import com.curuto.footballdata.utils.logD
+import com.curuto.footballdata.view.custom.OnRowClicked
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapter
 import com.curuto.footballdata.viewModel.ChampionshipViewModel
 import io.realm.Realm
@@ -48,4 +49,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }*/
         }
     }
+
+
+    fun donwloadChampionshipData(): OnRowClicked {
+        return object : OnRowClicked {
+            override fun onPositionClicked(index: Int) {
+                val item = championshipAdapter.getItem(index)
+
+                if(item != null){
+                    championshipViewModel.donwloadChampionshipData(item)
+                }
+            }
+        }
+    }
+
+
 }

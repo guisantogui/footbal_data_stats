@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.curuto.footballdata.databinding.RowItemChampionshipBinding
 import com.curuto.footballdata.model.Championship
+import com.curuto.footballdata.view.custom.OnRowClicked
 import com.curuto.footballdata.viewModel.ChampionshipViewModel
 import dagger.Module
 import dagger.Provides
@@ -32,12 +33,24 @@ open class ChampionshipAdapter
 @Module
 open class ChampionshipAdapterModule {
 
-
     @Provides
     open fun getEmptyAdapter(): ChampionshipAdapter {
         val championshipViewModel = ChampionshipViewModel()
 
         return ChampionshipAdapter(championshipViewModel.getAllChampionships(),
-                                    championshipViewModel.donwloadChampionshipData())
+                                    championshipViewModel.donwloadChampionshipData(null))
     }
+
+
+   /* fun donwloadChampionshipData(): OnRowClicked {
+        return object : OnRowClicked {
+            override fun onPositionClicked(index: Int) {
+                val item = championshipAdapter.getItem(index)
+
+                if(item != null){
+                    championshipViewModel.donwloadChampionshipData(item)
+                }
+            }
+        }
+    }*/
 }
