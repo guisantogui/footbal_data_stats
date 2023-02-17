@@ -10,8 +10,6 @@ import com.curuto.footballdata.utils.DOWNLOAD_FOOTBALLDATA
 import com.curuto.footballdata.utils.URL_PARAMETER
 import com.google.android.material.snackbar.Snackbar
 import com.google.common.util.concurrent.ListenableFuture
-import dagger.Module
-import dagger.Provides
 import io.realm.Realm
 import io.realm.RealmResults
 import java.util.concurrent.Executor
@@ -20,7 +18,7 @@ import java.util.concurrent.FutureTask
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class ChampionshipViewModel {
+class ChampionshipViewModel @Inject constructor() {
 
     @Inject lateinit var realm: Realm
 
@@ -38,6 +36,8 @@ class ChampionshipViewModel {
             it.insert(Championship(name, "", UUID.randomUUID().toString()))
         }*/
     }
+
+    fun rettext(): String { return "Champs View Model" }
 
     fun donwloadChampionshipData(championship: Championship?): View.OnClickListener {
         return View.OnClickListener {
@@ -76,14 +76,4 @@ class Downlaod(appContext: Context, workerParams: WorkerParameters) :
         return q
     }
 
-}
-
-
-@Module
-class ChampionshipViewModelModule {
-
-    @Provides
-    fun getChampionshipViewModel(): ChampionshipViewModel{
-        return ChampionshipViewModel()
-    }
 }

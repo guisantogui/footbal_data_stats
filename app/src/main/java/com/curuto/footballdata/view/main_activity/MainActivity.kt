@@ -34,8 +34,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         //talvez Componentes diferentes devem ser usados em activities diferentes
         (applicationContext as FootballDataApplication).myComp.inject(this)
 
-        binding.rvChampionshipList.adapter = championshipAdapter
-        binding.rvChampionshipList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        logD(championship.text())
+
+        logD(championshipViewModel.rettext())
+
+        logD(championshipAdapter.rettext()) // ERRO <-- AQUI PEDIU O PROVIDES
+
+        //binding.rvChampionshipList.adapter = championshipAdapter
+        //binding.rvChampionshipList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
 
         //binding.acbAddChampionship.setOnClickListener(this)
@@ -50,7 +56,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-
+/*
     fun donwloadChampionshipData(): OnRowClicked {
         return object : OnRowClicked {
             override fun onPositionClicked(index: Int) {
@@ -62,6 +68,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
+*/
 
 }

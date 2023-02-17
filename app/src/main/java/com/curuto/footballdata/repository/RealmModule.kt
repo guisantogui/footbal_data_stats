@@ -7,7 +7,6 @@ import io.realm.Realm
 @Module
 class RealmModule {
 
-
     @Provides
     fun getRealmInstance(): Realm {
         return Realm.getDefaultInstance();

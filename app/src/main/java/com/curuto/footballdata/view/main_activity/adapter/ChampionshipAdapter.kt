@@ -28,7 +28,11 @@ open class ChampionshipAdapter
     override fun onBindViewHolder(holder: ChampionshipViewHolder, position: Int) {
         holder.bind(championshipData[position], donwloadDataClick)
     }
+
+    fun rettext(): String {return "champs adapter"}
 }
+
+
 
 @Module
 open class ChampionshipAdapterModule {
@@ -37,9 +41,12 @@ open class ChampionshipAdapterModule {
     open fun getEmptyAdapter(): ChampionshipAdapter {
         val championshipViewModel = ChampionshipViewModel()
 
-        return ChampionshipAdapter(championshipViewModel.getAllChampionships(),
-                                    championshipViewModel.donwloadChampionshipData(null))
+        return ChampionshipAdapter(
+            championshipViewModel.getAllChampionships(),
+            championshipViewModel.donwloadChampionshipData(null)
+        )
     }
+}
 
 
    /* fun donwloadChampionshipData(): OnRowClicked {
@@ -53,4 +60,4 @@ open class ChampionshipAdapterModule {
             }
         }
     }*/
-}
+
