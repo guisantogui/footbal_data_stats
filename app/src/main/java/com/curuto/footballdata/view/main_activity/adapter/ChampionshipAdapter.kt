@@ -15,27 +15,26 @@ import javax.inject.Inject
 
 open class ChampionshipAdapter
         @Inject constructor(var championshipData: OrderedRealmCollection<Championship>,
-                            var donwloadDataClick: View.OnClickListener):
+                            var donwloadDataClick: OnRowClicked):
                                     RealmRecyclerViewAdapter<Championship, ChampionshipViewHolder>
                                                                     (championshipData, true) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChampionshipViewHolder {
         val binding = RowItemChampionshipBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ChampionshipViewHolder(binding)
+        return ChampionshipViewHolder(binding, donwloadDataClick)
     }
 
     override fun onBindViewHolder(holder: ChampionshipViewHolder, position: Int) {
-        holder.bind(championshipData[position], donwloadDataClick)
+        holder.bind(championshipData[position])
     }
 
     fun rettext(): String {return "champs adapter"}
 }
 
 
-
 @Module
-open class ChampionshipAdapterModule {
+open class ChampionshipAdapterModule(val onRowClicked: OnRowClicked) {
 
     @Provides
     open fun getEmptyAdapter(): ChampionshipAdapter {
@@ -43,21 +42,6 @@ open class ChampionshipAdapterModule {
 
         return ChampionshipAdapter(
             championshipViewModel.getAllChampionships(),
-            championshipViewModel.donwloadChampionshipData(null)
-        )
+            onRowClicked)
     }
 }
-
-
-   /* fun donwloadChampionshipData(): OnRowClicked {
-        return object : OnRowClicked {
-            override fun onPositionClicked(index: Int) {
-                val item = championshipAdapter.getItem(index)
-
-                if(item != null){
-                    championshipViewModel.donwloadChampionshipData(item)
-                }
-            }
-        }
-    }*/
-

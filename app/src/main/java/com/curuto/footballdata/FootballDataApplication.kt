@@ -12,8 +12,6 @@ import java.util.*
 
 class FootballDataApplication : Application() {
 
-    val myComp = DaggerFootbalDataApplicationComponent.create()
-
     override fun onCreate() {
         super.onCreate()
 
