@@ -42,8 +42,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         logD(championship.text())
 
-        logD(championshipViewModel.rettext())
-
         logD(championshipAdapter.rettext())
 
         binding.rvChampionshipList.adapter = championshipAdapter
@@ -69,7 +67,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val item = championshipAdapter.getItem(index)
 
                 if(item != null){
-                    championshipViewModel.donwloadChampionshipData(item, this@MainActivity)
+                    championshipViewModel.donwloadChampionshipData(item, applicationContext)
                 }
             }
         }

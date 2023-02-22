@@ -1,17 +1,21 @@
 package com.curuto.footballdata.viewModel
 
+import android.app.DownloadManager
 import android.content.Context
-import androidx.concurrent.futures.CallbackToFutureAdapter
+import android.net.Uri
 import androidx.work.*
 import com.curuto.footballdata.DaggerRealmComponent
 import com.curuto.footballdata.model.Championship
-import com.curuto.footballdata.utils.DOWNLOAD_FOOTBALLDATA
-import com.curuto.footballdata.utils.URL_PARAMETER
 import com.curuto.footballdata.utils.logD
-import com.google.common.util.concurrent.ListenableFuture
 import io.realm.Realm
 import io.realm.RealmResults
 import javax.inject.Inject
+import android.os.Environment
+import com.curuto.footballdata.services.EasyDownloadManager
+import com.curuto.footballdata.utils.NAME_PARAMETER
+import com.curuto.footballdata.utils.URL_PARAMETER
+import java.io.File
+
 
 class ChampionshipViewModel @Inject constructor() {
 
@@ -33,38 +37,35 @@ class ChampionshipViewModel @Inject constructor() {
         }*/
     }
 
-    fun rettext(): String {
-        return "Champs View Model"
-    }
-
     fun donwloadChampionshipData(championship: Championship, context: Context) {
+        val path = File(Environment.getExternalStorageDirectory(), "Download")
+        if (!path.exists()) {
+            path.mkdirs()
+        }
 
-        logD("CAMPEONATO " + championship.name)
+        EasyDownloadManager.startDowload(context,
+                    path.absolutePath + "/" + "E02021-2022.csv",
+                            "https://www.football-data.co.uk/mmz4281/2122/E0.csv")
 
-        val worker = WorkManager.getInstance(context)
-        val url = Pair<String, String>(URL_PARAMETER, championship.name)
-
-        val req = OneTimeWorkRequestBuilder<Download>().setInputData(workDataOf(url))
-
-
-
-        worker.beginUniqueWork(DOWNLOAD_FOOTBALLDATA,
-                                ExistingWorkPolicy.APPEND,
-                                    req.build()).enqueue()
     }
 }
 
-class Download(appContext: Context, workerParams: WorkerParameters) :
-    ListenableWorker(appContext, workerParams) {
+class CSVParser(private val context: Context, workerParameters: WorkerParameters) :
+    Worker(context, workerParameters) {
 
-    override fun startWork(): ListenableFuture<Result> {
+    /*
+        worker = WorkManager.getInstance(context)
+        val url = Pair(NAME_PARAMETER, championship.name)
 
-        val a = inputData.getString(URL_PARAMETER)
-        val q = CallbackToFutureAdapter.getFuture<Result> {
-            logD("Logando no futuro" + a)
-        }
+        val req = OneTimeWorkRequestBuilder<CSVParser>().setInputData(workDataOf(url))
+*/
+    override fun doWork(): Result {
 
-        return q
+        val championshipName = inputData.getString(NAME_PARAMETER)
+        val championshipUrl = inputData.getString(URL_PARAMETER)
+
+
+        return Result.success()
     }
 
 }
