@@ -17,5 +17,4 @@ const val TAG_E = "Football_Data_Error"
 const val DOWNLOAD_FOOTBALLDATA = "curuto_FootballData_Download"
 
 //Worker Parameters
-const val URL_PARAMETER = "URL"
-const val NAME_PARAMETER = "URL"
+const val DOWNLOAD_ID = "DOWNLOAD_ID"
