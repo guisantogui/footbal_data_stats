@@ -9,14 +9,12 @@ import javax.inject.Inject
 open class Championship constructor (
             var name: String,
             var dataUrl: String,
+            var code: String,
+            var season: String,
             @PrimaryKey var id: String
             ) : RealmObject() {
 
     @Inject
-    constructor(): this("","", "")
+    constructor(): this("","","","", "")
 
-
-    fun text(): String {
-        return "champs returned"
-    }
 }

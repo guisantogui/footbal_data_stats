@@ -1,0 +1,65 @@
+[
+  {
+    "name": "English Premier League",
+    "season": "2022-2023",
+    "download_data": "https://www.football-data.co.uk/mmz4281/2223/E0.csv",
+    "season_code": 2223,
+    "league_code": "E0"
+  },
+  {
+    "name": "English Premier League",
+    "season": "2021-2022",
+    "download_data": "https://www.football-data.co.uk/mmz4281/2122/E0.csv",
+    "season_code": 2122,
+    "league_code": "E0"
+  },
+  {
+    "name": "English Premier League",
+    "season": "2020-2021",
+    "download_data": "https://www.football-data.co.uk/mmz4281/2021/E0.csv",
+    "season_code": 2021,
+    "league_code": "E0"
+  },
+  {
+    "name": "English Premier League",
+    "season": "2019-2020",
+    "download_data": "https://www.football-data.co.uk/mmz4281/1920/E0.csv",
+    "season_code": 1920,
+    "league_code": "E0"
+  },
+  {
+    "name": "English Premier League",
+    "season": "2018-2019",
+    "download_data": "https://www.football-data.co.uk/mmz4281/1819/E0.csv",
+    "season_code": 1819,
+    "league_code": "E0"
+  },
+  {
+    "name": "English Premier League",
+    "season": "2017-2018",
+    "download_data": "https://www.football-data.co.uk/mmz4281/1718/E0.csv",
+    "season_code": 1718,
+    "league_code": "E0"
+  },
+  {
+    "name": "English Premier League",
+    "season": "2016-2017",
+    "download_data": "https://www.football-data.co.uk/mmz4281/1617/E0.csv",
+    "season_code": 1617,
+    "league_code": "E0"
+  },
+  {
+    "name": "English Premier League",
+    "season": "2015-2016",
+    "download_data": "https://www.football-data.co.uk/mmz4281/1516/E0.csv",
+    "season_code": 1516,
+    "league_code": "E0"
+  },
+  {
+    "name": "English Premier League",
+    "season": "2014-2015",
+    "download_data": "https://www.football-data.co.uk/mmz4281/1415/E0.csv",
+    "season_code": 1415,
+    "league_code": "E0"
+  }
+]

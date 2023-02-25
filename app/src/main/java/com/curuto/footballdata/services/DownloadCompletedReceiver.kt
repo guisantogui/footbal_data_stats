@@ -4,10 +4,8 @@ import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.work.*
 import com.curuto.footballdata.utils.DOWNLOAD_ID
-import com.curuto.footballdata.utils.logD
 import com.curuto.footballdata.utils.logE
 
 class DownloadCompletedReceiver : BroadcastReceiver() {
@@ -22,7 +20,7 @@ class DownloadCompletedReceiver : BroadcastReceiver() {
                 val workManager = WorkManager.getInstance(context)
                 val params = Data.Builder().putLong(DOWNLOAD_ID, downloadId).build()
 
-                val csvParserWorker = OneTimeWorkRequestBuilder<CSVParser>()
+                val csvParserWorker = OneTimeWorkRequestBuilder<CSVParseWorker>()
                     .setInputData(params)
                     .build()
 
@@ -32,28 +30,5 @@ class DownloadCompletedReceiver : BroadcastReceiver() {
                 logE("Download Id not found")
             }
         }
-
     }
-}
-
-class CSVParser(private val context: Context, workerParameters: WorkerParameters) :
-    Worker(context, workerParameters) {
-
-
-    override fun doWork(): Result {
-
-        val downloadId = inputData.getLong(DOWNLOAD_ID, -1L)
-
-        val query = DownloadManager.Query()
-        query.setFilterById(downloadId)
-
-        val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val uri: Uri = downloadManager.getUriForDownloadedFile(downloadId)
-
-
-        logD("CAMINHO: "+uri.path)
-
-        return Result.success()
-    }
-
 }

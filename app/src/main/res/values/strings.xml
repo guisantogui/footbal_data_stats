@@ -2,7 +2,7 @@
     <string name="app_name">FootballData</string>
 
     <string-array name="championship_list">
-        <item>Inglaterra - Premier League</item>
+        <item>{ \"name\": \"Inglaterra - Premier League\", "season":"2022(–, &#8211;)2023", "dataDownloadLink":"" </item>
         <item>Itália - Série A</item>
         <item>Espanha - La Liga</item>
         <item>Alemanha - Bundesliga 1</item>

@@ -40,8 +40,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         myComp.inject(this)
 
-        logD(championship.text())
-
         logD(championshipAdapter.rettext())
 
         binding.rvChampionshipList.adapter = championshipAdapter

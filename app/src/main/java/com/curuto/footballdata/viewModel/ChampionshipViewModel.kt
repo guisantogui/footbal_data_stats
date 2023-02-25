@@ -41,8 +41,8 @@ class ChampionshipViewModel @Inject constructor() {
         }
 
         EasyDownloadManager.startDowload(context,
-                    path.absolutePath + "/" + "E02021-2022.csv",
-                            "https://www.football-data.co.uk/mmz4281/2122/E0.csv")
+                    path.absolutePath + "/" + championship.code+championship.season +".csv",
+            championship.dataUrl)
 
         val receiver = DownloadCompletedReceiver()
         context.registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))

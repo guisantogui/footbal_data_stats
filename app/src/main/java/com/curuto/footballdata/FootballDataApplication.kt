@@ -8,6 +8,8 @@ import com.curuto.footballdata.utils.logD
 import com.curuto.footballdata.utils.updateSharedPreferences
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import org.json.JSONArray
+import org.json.JSONObject
 import java.util.*
 
 class FootballDataApplication : Application() {
@@ -41,6 +43,27 @@ class FootballDataApplication : Application() {
     }
 
     private fun initDatabase(){
+
+        val jsonSeedData = resources.openRawResource(R.raw.seed_data).bufferedReader().use { it.readText() }
+
+        val jsonObjects = JSONArray(jsonSeedData)
+        for (i in 0 .. jsonObjects.length()){
+            if(!jsonObjects.isNull(i)){
+                Realm.getDefaultInstance().executeTransactionAsync { r -> r
+                    val item = jsonObjects.optJSONObject(i)
+
+                    val championship = Championship(item.getString("name"),
+                                                    item.getString("download_data"),
+                                                    item.getString("league_code"),
+                                                    item.getString("season"),
+                                                    UUID.randomUUID().toString())
+                    r.insert(championship)
+                }
+            }
+
+        }
+
+/*
         val championshipList = resources.getStringArray(R.array.championship_list)
 
         logD("Time 0 " + championshipList[0])
@@ -50,6 +73,6 @@ class FootballDataApplication : Application() {
                     x -> r.insert(Championship(x, "", UUID.randomUUID().toString())) }
             }
 
-
+*/
     }
 }
