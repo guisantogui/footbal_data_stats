@@ -7,8 +7,11 @@ import android.content.Intent
 import androidx.work.*
 import com.curuto.footballdata.utils.DOWNLOAD_ID
 import com.curuto.footballdata.utils.logE
+import javax.inject.Inject
 
-class DownloadCompletedReceiver : BroadcastReceiver() {
+
+class DownloadCompletedBroadcastReceiver
+                @Inject constructor() : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
 

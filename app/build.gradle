@@ -63,6 +63,8 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     //REALM
     implementation 'io.realm:android-adapters:2.1.1'
+    //CSV READER
+    implementation 'com.opencsv:opencsv:4.6'
 
 }
 

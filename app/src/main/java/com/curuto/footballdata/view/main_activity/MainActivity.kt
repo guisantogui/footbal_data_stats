@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
     @Inject lateinit var championshipAdapter : ChampionshipAdapter
-    @Inject lateinit var championship: Championship
     @Inject lateinit var championshipViewModel: ChampionshipViewModel
     @Inject lateinit var realm: Realm
 

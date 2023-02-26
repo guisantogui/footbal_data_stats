@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FootballData">
         <receiver
-            android:name=".services.DownloadCompletedReceiver"
+            android:name=".services.DownloadCompletedBroadcastReceiver"
             android:enabled="true"
             android:exported="true" />
 

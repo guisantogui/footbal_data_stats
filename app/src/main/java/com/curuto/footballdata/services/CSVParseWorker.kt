@@ -7,6 +7,9 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.curuto.footballdata.utils.DOWNLOAD_ID
 import com.curuto.footballdata.utils.logD
+import com.opencsv.CSVReader
+import java.io.FileReader
+import java.io.InputStream
 
 class CSVParseWorker(private val context: Context, workerParameters: WorkerParameters) :
     Worker(context, workerParameters) {
@@ -23,7 +26,22 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
         val uri: Uri = downloadManager.getUriForDownloadedFile(downloadId)
 
 
-        logD("CAMINHO: "+uri.path)
+       // val input = context.contentResolver.uncanonicalize()
+
+
+
+
+
+       /* logD("CAMINHO: "+uri.path)
+
+        var nextLine: Array<String>
+
+        while (reader.readNext().also { nextLine = it } != null) {
+
+
+            logD("NEXT LINE: "+nextLine[3])
+        }*/
+
 
 
         return Result.success()
