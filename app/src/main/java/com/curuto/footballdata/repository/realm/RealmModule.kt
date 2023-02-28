@@ -1,4 +1,4 @@
-package com.curuto.footballdata.repository
+package com.curuto.footballdata.repository.realm
 
 import dagger.Module
 import dagger.Provides

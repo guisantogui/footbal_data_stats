@@ -11,6 +11,7 @@ open class Championship constructor (
             var dataUrl: String,
             var code: String,
             var season: String,
+
             @PrimaryKey var id: String
             ) : RealmObject() {
 
