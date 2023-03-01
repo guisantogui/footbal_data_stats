@@ -8,6 +8,7 @@ import com.curuto.footballdata.utils.logD
 import com.curuto.footballdata.utils.updateSharedPreferences
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import io.realm.RealmList
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
@@ -52,11 +53,13 @@ class FootballDataApplication : Application() {
                 Realm.getDefaultInstance().executeTransactionAsync { r -> r
                     val item = jsonObjects.optJSONObject(i)
 
-                    val championship = Championship(item.getString("name"),
+                    val championship = Championship(
+                                                    UUID.randomUUID(),
+                                                    item.getString("name"),
                                                     item.getString("download_data"),
                                                     item.getString("league_code"),
                                                     item.getString("season"),
-                                                    UUID.randomUUID().toString())
+                                                    RealmList())
                     r.insert(championship)
                 }
             }

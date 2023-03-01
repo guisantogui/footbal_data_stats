@@ -3,12 +3,12 @@ package com.curuto.footballdata.viewModel
 import android.app.DownloadManager
 import android.content.Context
 import android.content.IntentFilter
-import com.curuto.footballdata.DaggerRealmComponent
 import com.curuto.footballdata.model.Championship
 import io.realm.Realm
 import io.realm.RealmResults
 import javax.inject.Inject
 import android.os.Environment
+import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import com.curuto.footballdata.services.DownloadCompletedBroadcastReceiver
 import com.curuto.footballdata.services.EasyDownloadManager
 import com.curuto.footballdata.utils.DOWNLOAD

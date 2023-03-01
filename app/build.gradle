@@ -65,6 +65,8 @@ dependencies {
     implementation 'io.realm:android-adapters:2.1.1'
     //CSV READER
     implementation 'com.opencsv:opencsv:4.6'
+    //JODA TIME
+    implementation 'net.danlew:android.joda:2.12.1.1'
 
 }
 

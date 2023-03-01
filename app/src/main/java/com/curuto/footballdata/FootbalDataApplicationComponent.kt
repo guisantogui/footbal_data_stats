@@ -1,6 +1,7 @@
 package com.curuto.footballdata
 
 import com.curuto.footballdata.repository.realm.RealmModule
+import com.curuto.footballdata.services.CSVParseWorker
 import com.curuto.footballdata.view.main_activity.MainActivity
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapterModule
 import com.curuto.footballdata.viewModel.ChampionshipViewModel
@@ -14,4 +15,5 @@ interface FootbalDataApplicationComponent {
 
     fun inject(activity: MainActivity)
     fun inject(championshipViewModel: ChampionshipViewModel)
+    fun inject(csvParseWorker: CSVParseWorker)
 }

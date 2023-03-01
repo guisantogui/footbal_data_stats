@@ -6,5 +6,7 @@ import io.realm.annotations.RealmClass
 import java.util.*
 
 @RealmClass
-open class Team(@PrimaryKey val id: UUID, val name: String) : RealmModel {
+open class Team(@PrimaryKey var id: UUID, var name: String) : RealmModel {
+
+    constructor(): this(UUID.randomUUID(), "")
 }
