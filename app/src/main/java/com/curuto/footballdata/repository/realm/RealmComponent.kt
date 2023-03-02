@@ -1,6 +1,6 @@
 package com.curuto.footballdata.repository.realm
 
-import com.curuto.footballdata.services.CSVParseWorker
+import com.curuto.footballdata.services.csvParser.CSVParseWorker
 import com.curuto.footballdata.viewModel.ChampionshipViewModel
 import dagger.Component
 

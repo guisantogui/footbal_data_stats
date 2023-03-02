@@ -1,10 +1,11 @@
-package com.curuto.footballdata.services
+package com.curuto.footballdata.services.csvParser
 
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.curuto.footballdata.model.Match
 import com.curuto.footballdata.model.Team
+import com.curuto.footballdata.services.EasyDownloadManager
+import com.curuto.footballdata.services.csvParser.csvModels.*
 import com.curuto.footballdata.utils.DOWNLOAD_ID
 import com.curuto.footballdata.utils.logD
 import com.opencsv.CSVReader
@@ -26,18 +27,31 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
         val lines = reader.readAll()
 
 
-        var homeTeamIndex = -1;
-        var awayTeamIndex = -1;
-        var dateIndex = -1;
-        var timeIndex = -1;
+/*        val premierLeague20192023 = listOf("Div", "Date", "Time", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR", "HTHG", "HTAG", "HTR", "Referee", "HS", "AS", "HST", "AST", "HF", "AF", "HC", "AC", "HY", "AY", "HR", "AR")
+        val premierLeague20032018 = listOf("Div", "Date", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR", "HTHG", "HTAG", "HTR", "Referee", "HS", "AS", "HST", "AST", "HF", "AF", "HC", "AC", "HY", "AY", "HR", "AR")
+        val premierLeague20012002 = listOf("Div", "Date", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR", "HTHG", "HTAG", "HTR", "Attendance", "Referee", "HS", "AS", "HST", "AST", "HHW", "AHW", "HC", "AC", "HF", "AF", "HO", "AO", "HY", "AY", "HR", "AR", "HBP", "ABP")
+        val premierLeague19962000 = listOf("Div",  "Date",  "HomeTeam",  "AwayTeam",  "FTHG",  "FTAG",  "FTR",  "HTHG",  "HTAG",  "HT")
+        val premierLeague19941995 = listOf("Div",  "Date",  "HomeTeam",  "AwayTeam",  "FTHG",  "FTAG",  "FTR")
+        val otherLeaguesModel = listOf("Country", "League", "Season", "Date", "Time", "Home", "Away", "HG", "AG", "Res")
 
+*/
+
+        val models = listOf(/*PremierLeague19941995Model(), PremierLeague19962000Model(), PremierLeague20012002Model(),*/
+                            PremierLeague20032018Model(), PremierLeague20192023Model(), OtherLeaguesModel())
+
+
+        var csvModel: CSVModel
         for( i in 0 .. lines.size){
             if(i == 0){
-                //cabeçalhos
-                homeTeamIndex = lines[i].indexOf("HomeTeam")
-                awayTeamIndex = lines[i].indexOf("AwayTeam")
-                dateIndex = lines[i].indexOf("Date")
-                timeIndex = lines[i].indexOf("Time")
+
+                for(model in models){
+                    if(model.matchDownloadedModel(lines[i])){
+                        csvModel = model
+                        break
+                    }
+
+                }
+
 
             }
             else {
@@ -45,11 +59,9 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
                 val line = lines[i]
 
                 for(j in 0 .. line.size){
-                    if(homeTeamIndex >= 0 && homeTeamIndex < line.size){
-
-                    }
 
                 }
+
 
 
                 val homeTeamName: String = line[3]
