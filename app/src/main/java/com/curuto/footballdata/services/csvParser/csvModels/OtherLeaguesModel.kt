@@ -1,7 +1,7 @@
 package com.curuto.footballdata.services.csvParser.csvModels
 
 import com.curuto.footballdata.utils.OTHERLEAGUESMODEL
-
+/*
 class OtherLeaguesModel: CSVModel() {
 
     override var id: Int = OTHERLEAGUESMODEL
@@ -11,4 +11,4 @@ class OtherLeaguesModel: CSVModel() {
     override fun matchDownloadedModel(downloadedColumns: Array<String>): Boolean {
         TODO("Not yet implemented")
     }*/
-}
+}*/

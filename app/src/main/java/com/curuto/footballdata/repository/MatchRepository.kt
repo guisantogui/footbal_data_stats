@@ -1,0 +1,17 @@
+package com.curuto.footballdata.repository
+
+import com.curuto.footballdata.model.Match
+import io.realm.Realm
+import javax.inject.Inject
+
+object MatchRepository {
+
+    @Inject
+    lateinit var realm: Realm
+
+    fun insertMatch(match: Match) {
+        realm.executeTransaction {
+            it.insertOrUpdate(match)
+        }
+    }
+}

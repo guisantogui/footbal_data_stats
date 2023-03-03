@@ -1,19 +1,47 @@
 package com.curuto.footballdata.services.csvParser.csvModels
 
-import com.curuto.footballdata.utils.*
+import com.curuto.footballdata.model.Match
+import com.curuto.footballdata.model.Team
+import com.curuto.footballdata.repository.TeamRepository
+import org.joda.time.DateTime
+import java.util.*
 
 class PremierLeague20192023Model : CSVModel() {
-
-    override var id: Int = PREMIERLEAGUE20192023MODEL
 
     //TROCAR ESSA LISTA DE COLUNAS POR UM DICIONARIO COM A COLUNA E O SEU INDICE
     override var columnModelList = listOf( "Div", "Date", "Time", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR", "HTHG", "HTAG", "HTR", "Referee", "HS", "AS", "HST", "AST", "HF", "AF", "HC", "AC", "HY", "AY", "HR", "AR")
 
-    //IDÉIA ANTIGA
-    //CRIAR AQUI CAMPOS COM INDICES DE CADA COLUNA
-    val divIndex = 0;
-    val dateIndex = 1;
-    val timeIndex = 2;
+    override fun readLine(array: Array<String>): Match {
+        val divIndex = array.indexOf("Div")
+        val dateIndex = array.indexOf("Date")
+        val timeIndex = array.indexOf("Time")
+        val homeTeamIndex = array.indexOf("HomeTeam")
+        val awayTeamIndex = array.indexOf("AwayTeam")
+        val fthgIndex = array.indexOf("FTHG")
+        val ftagIndex = array.indexOf("FTAG")
+        val ftrIndex = array.indexOf("FTR")
+
+
+        var homeTeam = TeamRepository.getTeamByName(array[homeTeamIndex])
+        if(homeTeam == null){
+            homeTeam = Team(UUID.randomUUID(), array[homeTeamIndex])
+        }
+
+        var awayTeam = TeamRepository.getTeamByName(array[awayTeamIndex])
+        if(awayTeam == null){
+            awayTeam = Team(UUID.randomUUID(), array[awayTeamIndex])
+        }
+
+        val date = DateTime.parse(array[dateIndex].trim()+" "+array[timeIndex].trim())
+        val ftr = array[ftrIndex].trim()
+
+        val fthg = Integer.parseInt(array[fthgIndex].trim())
+        val ftag = Integer.parseInt(array[ftagIndex].trim())
+
+        val match = Match(UUID.randomUUID(), homeTeam, awayTeam, date.toDate(), ftr, fthg, ftag)
+
+        return match
+    }
 
 
     /*override fun matchDownloadedModel(downloadedColumns: Array<String>): Boolean {
@@ -25,8 +53,31 @@ class PremierLeague20192023Model : CSVModel() {
 
 class PremierLeague20032018Model : CSVModel() {
 
-    override var id: Int = PREMIERLEAGUE20032018MODEL
     override var columnModelList = listOf("Div", "Date", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR", "HTHG", "HTAG", "HTR", "Referee", "HS", "AS", "HST", "AST", "HF", "AF", "HC", "AC", "HY", "AY", "HR", "AR")
+
+    override fun readLine(array: Array<String>): Match {
+        val divIndex = array.indexOf("Div")
+        val dateIndex = array.indexOf("Date")
+        val homeTeamIndex = array.indexOf("HomeTeam")
+        val awayTeamIndex = array.indexOf("AwayTeam")
+        val fthgIndex = array.indexOf("FTHG")
+        val ftagIndex = array.indexOf("FTAG")
+        val ftrIndex = array.indexOf("FTR")
+
+
+        val homeTeam = Team(UUID.randomUUID(), array[homeTeamIndex])
+        val awayTeam = Team(UUID.randomUUID(), array[awayTeamIndex])
+
+        val date = DateTime.parse(array[dateIndex].trim())
+        val ftr = array[ftrIndex].trim()
+
+        val fthg = Integer.parseInt(array[fthgIndex].trim())
+        val ftag = Integer.parseInt(array[ftagIndex].trim())
+
+        val match = Match(UUID.randomUUID(), homeTeam, awayTeam, date.toDate(), ftr, fthg, ftag)
+
+        return match
+    }
 
 /*
     override fun matchDownloadedModel(downloadedColumns: Array<String>): Boolean {
