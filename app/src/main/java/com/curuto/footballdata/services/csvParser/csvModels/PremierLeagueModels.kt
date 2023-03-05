@@ -8,7 +8,6 @@ import java.util.*
 
 class PremierLeague20192023Model : CSVModel() {
 
-    //TROCAR ESSA LISTA DE COLUNAS POR UM DICIONARIO COM A COLUNA E O SEU INDICE
     override var columnModelList = listOf( "Div", "Date", "Time", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR", "HTHG", "HTAG", "HTR", "Referee", "HS", "AS", "HST", "AST", "HF", "AF", "HC", "AC", "HY", "AY", "HR", "AR")
 
     override fun readLine(array: Array<String>): Match {
@@ -21,13 +20,14 @@ class PremierLeague20192023Model : CSVModel() {
         val ftagIndex = array.indexOf("FTAG")
         val ftrIndex = array.indexOf("FTR")
 
+        val teamRepository = TeamRepository()
 
-        var homeTeam = TeamRepository.getTeamByName(array[homeTeamIndex])
+        var homeTeam = teamRepository.getTeamByName(array[homeTeamIndex])
         if(homeTeam == null){
             homeTeam = Team(UUID.randomUUID(), array[homeTeamIndex])
         }
 
-        var awayTeam = TeamRepository.getTeamByName(array[awayTeamIndex])
+        var awayTeam = teamRepository.getTeamByName(array[awayTeamIndex])
         if(awayTeam == null){
             awayTeam = Team(UUID.randomUUID(), array[awayTeamIndex])
         }
@@ -42,13 +42,6 @@ class PremierLeague20192023Model : CSVModel() {
 
         return match
     }
-
-
-    /*override fun matchDownloadedModel(downloadedColumns: Array<String>): Boolean {
-        val premierLeague20192023 = listOf("Div", "Date", "Time", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR", "HTHG", "HTAG", "HTR", "Referee", "HS", "AS", "HST", "AST", "HF", "AF", "HC", "AC", "HY", "AY", "HR", "AR")
-
-        return premierLeague20192023.all { downloadedColumns.contains(it) }
-    }*/
 }
 
 class PremierLeague20032018Model : CSVModel() {
@@ -64,9 +57,18 @@ class PremierLeague20032018Model : CSVModel() {
         val ftagIndex = array.indexOf("FTAG")
         val ftrIndex = array.indexOf("FTR")
 
+        val teamRepository = TeamRepository()
 
-        val homeTeam = Team(UUID.randomUUID(), array[homeTeamIndex])
-        val awayTeam = Team(UUID.randomUUID(), array[awayTeamIndex])
+        var homeTeam = teamRepository.getTeamByName(array[homeTeamIndex])
+        if(homeTeam == null){
+            homeTeam = Team(UUID.randomUUID(), array[homeTeamIndex])
+        }
+
+        var awayTeam = teamRepository.getTeamByName(array[awayTeamIndex])
+        if(awayTeam == null){
+            awayTeam = Team(UUID.randomUUID(), array[awayTeamIndex])
+        }
+
 
         val date = DateTime.parse(array[dateIndex].trim())
         val ftr = array[ftrIndex].trim()

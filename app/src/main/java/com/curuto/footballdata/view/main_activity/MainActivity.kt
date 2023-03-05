@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         //Deixando de criar componente na application, e criando na activity
         val myComp = DaggerFootbalDataApplicationComponent.builder()
-                        .championshipAdapterModule(ChampionshipAdapterModule(donwloadChampionshipData()))
+                        .championshipAdapterModule(ChampionshipAdapterModule(donwloadChampionshipData(), onRowItemClicked()))
                         .build()
 
         myComp.inject(this)
@@ -66,6 +66,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 if(item != null){
                     championshipViewModel.donwloadChampionshipData(item, applicationContext)
                 }
+            }
+        }
+    }
+
+    fun onRowItemClicked(): OnRowClicked {
+        return object : OnRowClicked {
+            override fun onPositionClicked(index: Int) {
+                val item = championshipAdapter.getItem(index)
+
+                logD("ON ROW CLICKED <<<")
             }
         }
     }

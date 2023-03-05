@@ -4,7 +4,7 @@ import com.curuto.footballdata.model.Match
 import io.realm.Realm
 import javax.inject.Inject
 
-object MatchRepository {
+class MatchRepository {
 
     @Inject
     lateinit var realm: Realm

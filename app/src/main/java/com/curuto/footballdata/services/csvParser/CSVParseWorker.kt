@@ -10,8 +10,6 @@ import com.curuto.footballdata.services.EasyDownloadManager
 import com.curuto.footballdata.services.csvParser.csvModels.*
 import com.curuto.footballdata.utils.DOWNLOAD_ID
 import com.opencsv.CSVReader
-import kotlinx.coroutines.awaitAll
-import java.util.*
 
 
 class CSVParseWorker(private val context: Context, workerParameters: WorkerParameters) :
@@ -26,7 +24,7 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
 
         val models =
             listOf(/*PremierLeague19941995Model(), PremierLeague19962000Model(), PremierLeague20012002Model(),*/
-                PremierLeague20032018Model(), PremierLeague20192023Model()
+                PremierLeague20032018Model(), PremierLeague20192023Model(), OtherLeaguesModel()
             )
 
         val columns = lines[0]
@@ -34,20 +32,19 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
         for (model in models) {
             if (model.matchDownloadedModel(columns)) {
                 for (i in 1..lines.size) {
-
-                val line = lines[i]
+                    val line = lines[i]
                     val match = model.readLine(line)
-                    TeamRepository.insertTeam(match.homeTeam!!)
-                    TeamRepository.insertTeam(match.awayTeam!!)
+                    val teamRepository = TeamRepository()
 
-                    MatchRepository.insertMatch(match)
+                    teamRepository.insertTeam(match.homeTeam!!)
+                    teamRepository.insertTeam(match.awayTeam!!)
+
+                    MatchRepository().insertMatch(match)
                 }
             }
         }
 
         //TODO: remover o arquivo
-
-
         return Result.success()
     }
 }
