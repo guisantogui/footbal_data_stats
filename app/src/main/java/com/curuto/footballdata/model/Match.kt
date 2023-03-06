@@ -5,6 +5,7 @@ import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
 import org.joda.time.DateTime
 import java.util.*
+import javax.inject.Inject
 
 
 @RealmClass
@@ -19,6 +20,7 @@ open class Match(
 
         ): RealmObject() {
 
+        @Inject
         constructor(): this(UUID.randomUUID(), null,null, Date(), "", 0,0)
 }
 

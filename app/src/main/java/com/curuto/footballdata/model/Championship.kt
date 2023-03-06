@@ -11,14 +11,13 @@ import javax.inject.Inject
 open class Championship constructor (
             @PrimaryKey var id: UUID,
             var name: String,
-            var dataUrl: String,
             var code: String,
-            var season: String,
-            var matches: RealmList<Match>,
+            var season: RealmList<Season>,
+            //var matches: RealmList<Match>,
 
             ) : RealmObject() {
 
     @Inject
-    constructor(): this(UUID.randomUUID(),"","","","", RealmList(),)
+    constructor(): this(UUID.randomUUID(),"","", RealmList(),)
 
 }

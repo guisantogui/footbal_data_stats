@@ -53,14 +53,17 @@ class FootballDataApplication : Application() {
                 Realm.getDefaultInstance().executeTransactionAsync { r -> r
                     val item = jsonObjects.optJSONObject(i)
 
+
+                    /*
                     val championship = Championship(
                                                     UUID.randomUUID(),
                                                     item.getString("name"),
                                                     item.getString("download_data"),
                                                     item.getString("league_code"),
-                                                    item.getString("season"),
                                                     RealmList())
                     r.insert(championship)
+                    */
+
                 }
             }
 

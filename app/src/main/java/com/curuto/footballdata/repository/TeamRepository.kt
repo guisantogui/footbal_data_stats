@@ -5,7 +5,7 @@ import io.realm.Case
 import io.realm.Realm
 import javax.inject.Inject
 
-class TeamRepository {
+class TeamRepository @Inject constructor() {
 
     @Inject lateinit var realm: Realm
 

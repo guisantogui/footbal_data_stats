@@ -3,17 +3,20 @@ package com.curuto.footballdata.services.csvParser
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.curuto.footballdata.model.Team
 import com.curuto.footballdata.repository.MatchRepository
 import com.curuto.footballdata.repository.TeamRepository
 import com.curuto.footballdata.services.EasyDownloadManager
 import com.curuto.footballdata.services.csvParser.csvModels.*
 import com.curuto.footballdata.utils.DOWNLOAD_ID
 import com.opencsv.CSVReader
+import javax.inject.Inject
 
 
 class CSVParseWorker(private val context: Context, workerParameters: WorkerParameters) :
     Worker(context, workerParameters) {
+
+    @Inject lateinit var matchRepository: MatchRepository
+    @Inject lateinit var teamRepository: TeamRepository
 
     override fun doWork(): Result {
 
@@ -34,15 +37,16 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
                 for (i in 1..lines.size) {
                     val line = lines[i]
                     val match = model.readLine(line)
-                    val teamRepository = TeamRepository()
 
                     teamRepository.insertTeam(match.homeTeam!!)
                     teamRepository.insertTeam(match.awayTeam!!)
 
-                    MatchRepository().insertMatch(match)
+                    matchRepository.insertMatch(match)
                 }
             }
         }
+
+
 
         //TODO: remover o arquivo
         return Result.success()

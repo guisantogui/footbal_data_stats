@@ -4,7 +4,6 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import com.curuto.footballdata.utils.logD
-import com.opencsv.CSVReader
 import java.io.File
 import java.io.InputStreamReader
 
@@ -23,7 +22,7 @@ object EasyDownloadManager {
         downloadManager.enqueue(request)
     }
 
-    fun getFileFromId(context: Context, id: Long) : InputStreamReader{
+    fun getFileFromId(context: Context, id: Long) : InputStreamReader {
         val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val uri: Uri = downloadManager.getUriForDownloadedFile(id)
         val inputStream = context.contentResolver.openInputStream(uri)

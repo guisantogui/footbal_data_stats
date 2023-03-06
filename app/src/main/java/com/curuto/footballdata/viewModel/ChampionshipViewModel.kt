@@ -17,9 +17,7 @@ import java.io.File
 
 class ChampionshipViewModel @Inject constructor() {
 
-    @Inject lateinit var realm: Realm
     @Inject lateinit var downloadBroadcastReceiver : DownloadCompletedBroadcastReceiver
-
 
     init {
         val realmComponent = DaggerRealmComponent.create()
@@ -36,6 +34,7 @@ class ChampionshipViewModel @Inject constructor() {
         }*/
     }
 
+
     fun donwloadChampionshipData(championship: Championship, context: Context) {
         val path = File(Environment.getExternalStorageDirectory(), DOWNLOAD)
         if (!path.exists()) {
@@ -44,7 +43,7 @@ class ChampionshipViewModel @Inject constructor() {
 
         EasyDownloadManager.startDowload(context,
                     path.absolutePath + "/" + championship.code+championship.season +".csv",
-            championship.dataUrl)
+            "championship.dataUrl")
 
         context.registerReceiver(downloadBroadcastReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
     }
