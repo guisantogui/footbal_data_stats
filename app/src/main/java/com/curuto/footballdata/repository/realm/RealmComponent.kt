@@ -1,5 +1,6 @@
 package com.curuto.footballdata.repository.realm
 
+import com.curuto.footballdata.FootballDataApplication
 import com.curuto.footballdata.services.csvParser.CSVParseWorker
 import com.curuto.footballdata.viewModel.ChampionshipViewModel
 import dagger.Component
@@ -9,4 +10,5 @@ interface RealmComponent {
 
     fun inject(championshipViewModel: ChampionshipViewModel)
     fun inject(csvParseWorker: CSVParseWorker)
+    fun inject(footballDataApplication: FootballDataApplication)
 }

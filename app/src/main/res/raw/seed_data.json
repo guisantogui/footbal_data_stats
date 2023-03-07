@@ -49,5 +49,17 @@
         "season_code": "1415"
       }
     ]
+  },
+  {
+    "championship_code": "BRA",
+    "name": "Campeonato Brasileiro - Série A",
+    "seasons": [
+      {
+        "season": "",
+        "download_data": "https://www.football-data.co.uk/new/BRA.xlsx",
+        "season_code": ""
+      }
+    ]
   }
+
 ]

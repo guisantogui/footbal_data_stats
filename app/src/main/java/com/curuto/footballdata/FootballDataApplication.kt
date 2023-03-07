@@ -2,6 +2,8 @@ package com.curuto.footballdata
 
 import android.app.Application
 import com.curuto.footballdata.model.Championship
+import com.curuto.footballdata.model.Match
+import com.curuto.footballdata.model.Season
 import com.curuto.footballdata.utils.FIRST_RUN
 import com.curuto.footballdata.utils.getStringSharedPreferences
 import com.curuto.footballdata.utils.logD
@@ -10,7 +12,6 @@ import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmList
 import org.json.JSONArray
-import org.json.JSONObject
 import java.util.*
 
 class FootballDataApplication : Application() {
@@ -29,8 +30,9 @@ class FootballDataApplication : Application() {
 
         Realm.setDefaultConfiguration(config)
 
+
         val isFirstRun = getStringSharedPreferences(this, FIRST_RUN) != "1"
-        if(isFirstRun) {
+        if (true) {
             initDatabase()
             updateSharedPreferences(this, FIRST_RUN, "1")
 
@@ -39,46 +41,45 @@ class FootballDataApplication : Application() {
 
         logD("Custom Application onCreate() Finished")
     }
+
     override fun onTerminate() {
         super.onTerminate()
     }
 
-    private fun initDatabase(){
+    private fun initDatabase() {
 
-        val jsonSeedData = resources.openRawResource(R.raw.seed_data).bufferedReader().use { it.readText() }
+        val jsonSeedData =
+            resources.openRawResource(R.raw.seed_data).bufferedReader().use { it.readText() }
 
         val jsonObjects = JSONArray(jsonSeedData)
-        for (i in 0 .. jsonObjects.length()){
-            if(!jsonObjects.isNull(i)){
-                Realm.getDefaultInstance().executeTransactionAsync { r -> r
-                    val item = jsonObjects.optJSONObject(i)
+        for (i in 0 until jsonObjects.length()) {
+            if (!jsonObjects.isNull(i)) {
 
+                val item = jsonObjects.optJSONObject(i)
+                val championshipName = item.getString("name")
+                val championshipCode = item.getString("championship_code")
+                val seasons = item.getJSONArray("seasons")
 
-                    /*
-                    val championship = Championship(
-                                                    UUID.randomUUID(),
-                                                    item.getString("name"),
-                                                    item.getString("download_data"),
-                                                    item.getString("league_code"),
-                                                    RealmList())
-                    r.insert(championship)
-                    */
+                val seasonList = RealmList<Season>()
 
+                for (j in 0 until seasons.length()) {
+
+                    val innerItem = seasons.optJSONObject(j)
+
+                    //val innerItemName = item.getString("season") campo não usado no objeto seed, mas será mantido para talvez uso futuro
+                    val downloadDataLink = innerItem.getString("download_data")
+                    val seasonCode = innerItem.getString("season_code")
+
+                    seasonList.add(Season(UUID.randomUUID(), downloadDataLink,seasonCode, RealmList<Match>()))
                 }
-            }
 
+                val championship = Championship(UUID.randomUUID(), championshipName, championshipCode, seasonList)
+
+                Realm.getDefaultInstance().executeTransactionAsync {
+                    it.insertOrUpdate(championship)
+                }
+
+            }
         }
-
-/*
-        val championshipList = resources.getStringArray(R.array.championship_list)
-
-        logD("Time 0 " + championshipList[0])
-
-        Realm.getDefaultInstance().executeTransactionAsync { r -> r
-            championshipList.forEach {
-                    x -> r.insert(Championship(x, "", UUID.randomUUID().toString())) }
-            }
-
-*/
     }
 }

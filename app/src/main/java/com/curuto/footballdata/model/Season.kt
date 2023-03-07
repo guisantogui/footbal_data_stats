@@ -8,7 +8,7 @@ import java.util.*
 import javax.inject.Inject
 
 @RealmClass
-class Season(@PrimaryKey var id: UUID,
+open class Season(@PrimaryKey var id: UUID,
              var dataUrl: String,
              var code: String,
              var matches: RealmList<Match>,) : RealmObject() {
