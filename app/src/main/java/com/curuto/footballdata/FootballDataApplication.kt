@@ -24,7 +24,6 @@ class FootballDataApplication : Application() {
         val config = RealmConfiguration.Builder()
             .name("footballdata.db")
             .schemaVersion(1)
-            //.allowQueriesOnUiThread(true)
             .deleteRealmIfMigrationNeeded()
             .build()
 
@@ -32,7 +31,7 @@ class FootballDataApplication : Application() {
 
 
         val isFirstRun = getStringSharedPreferences(this, FIRST_RUN) != "1"
-        if (true) {
+        if (isFirstRun) {
             initDatabase()
             updateSharedPreferences(this, FIRST_RUN, "1")
 

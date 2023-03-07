@@ -10,10 +10,12 @@ import com.curuto.footballdata.FootballDataApplication
 import com.curuto.footballdata.databinding.ActivityMainBinding
 import com.curuto.footballdata.model.Championship
 import com.curuto.footballdata.utils.logD
+import com.curuto.footballdata.utils.showSnackbar
 import com.curuto.footballdata.view.custom.OnRowClicked
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapter
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapterModule
 import com.curuto.footballdata.viewModel.ChampionshipViewModel
+import com.google.android.material.snackbar.Snackbar
 import io.realm.Realm
 import javax.inject.Inject
 
@@ -65,6 +67,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 if(item != null){
                     championshipViewModel.donwloadChampionshipData(item, applicationContext)
                 }
+
+                showSnackbar(binding.llcChampionshipListRoot, "Clicked", Snackbar.LENGTH_SHORT)
             }
         }
     }

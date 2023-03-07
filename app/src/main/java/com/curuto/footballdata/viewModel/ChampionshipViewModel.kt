@@ -8,6 +8,7 @@ import io.realm.Realm
 import io.realm.RealmResults
 import javax.inject.Inject
 import android.os.Environment
+import android.widget.Toast
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import com.curuto.footballdata.services.DownloadCompletedBroadcastReceiver
 import com.curuto.footballdata.services.EasyDownloadManager
@@ -36,15 +37,16 @@ class ChampionshipViewModel @Inject constructor() {
 
 
     fun donwloadChampionshipData(championship: Championship, context: Context) {
-        val path = File(Environment.getExternalStorageDirectory(), DOWNLOAD)
+        /*val path = File(Environment.getExternalStorageDirectory(), DOWNLOAD)
         if (!path.exists()) {
             path.mkdirs()
         }
+
 
         EasyDownloadManager.startDowload(context,
                     path.absolutePath + "/" + championship.code+championship.season +".csv",
             "championship.dataUrl")
 
-        context.registerReceiver(downloadBroadcastReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+        context.registerReceiver(downloadBroadcastReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))*/
     }
 }

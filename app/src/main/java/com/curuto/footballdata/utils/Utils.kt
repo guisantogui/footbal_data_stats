@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ktx.BuildConfig
+import com.google.android.material.snackbar.Snackbar
 
 
 private fun initSharedPreferences(context: Context): SharedPreferences {
@@ -45,4 +46,8 @@ fun logE(text: String?, exception: Throwable) {
 
 fun ViewGroup.inflate(layoutRes: Int): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, false)
+}
+
+fun showSnackbar(v: View, message: String, length: Int){
+    Snackbar.make(v, message, length).show()
 }

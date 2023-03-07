@@ -21,7 +21,7 @@ class ChampionshipViewHolder(itemView: RowItemChampionshipBinding,
     }
 
     fun bind(championship: Championship){
-        tvChampionship.text = championship.name + "Season: "+ championship.season
+        tvChampionship.text = championship.name
     }
 
     override fun onClick(v: View?) {
