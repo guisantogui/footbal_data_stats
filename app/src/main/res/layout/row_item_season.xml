@@ -2,23 +2,20 @@
 <androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/llc_championship_adapter_root"
+    android:id="@+id/llc_item_season_list_root"
+    android:gravity="center_vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/root_item_default_margin"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content">
 
     <TextView
-        android:layout_gravity="center"
-        android:id="@+id/tv_championship_name"
+        android:id="@+id/tv_season_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Brasileirão - Séria A">
-
-    </TextView>
+        tools:text="Temporada 2022"
+        />
 
     <ImageButton
-        android:id="@+id/ib_championship_download_data"
+        android:id="@+id/ib_season_download_data"
         android:layout_gravity="center|end"
         android:src="@drawable/ic_baseline_arrow_downward_24_black"
         android:layout_width="wrap_content"

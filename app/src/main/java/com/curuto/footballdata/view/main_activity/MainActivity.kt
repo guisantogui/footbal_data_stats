@@ -1,14 +1,11 @@
 package com.curuto.footballdata.view.main_activity
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.curuto.footballdata.DaggerFootbalDataApplicationComponent
-import com.curuto.footballdata.FootballDataApplication
 import com.curuto.footballdata.databinding.ActivityMainBinding
-import com.curuto.footballdata.model.Championship
 import com.curuto.footballdata.utils.logD
 import com.curuto.footballdata.utils.showSnackbar
 import com.curuto.footballdata.view.custom.OnRowClicked
@@ -16,7 +13,6 @@ import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapter
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapterModule
 import com.curuto.footballdata.viewModel.ChampionshipViewModel
 import com.google.android.material.snackbar.Snackbar
-import io.realm.Realm
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -39,8 +35,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         .build()
 
         myComp.inject(this)
-
-        logD(championshipAdapter.rettext())
 
         binding.rvChampionshipList.adapter = championshipAdapter
         binding.rvChampionshipList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

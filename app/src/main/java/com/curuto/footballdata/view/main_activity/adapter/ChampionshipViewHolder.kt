@@ -16,7 +16,7 @@ class ChampionshipViewHolder(itemView: RowItemChampionshipBinding,
 
 
     init {
-        itemView.ibDownloadData.setOnClickListener(this)
+        itemView.ibChampionshipDownloadData.setOnClickListener(this)
         itemView.llcChampionshipAdapterRoot.setOnClickListener(this)
     }
 
@@ -26,7 +26,7 @@ class ChampionshipViewHolder(itemView: RowItemChampionshipBinding,
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.ib_download_data -> downloadDataClickListener.onPositionClicked(adapterPosition)
+            R.id.ib_championship_download_data -> downloadDataClickListener.onPositionClicked(adapterPosition)
             R.id.llc_championship_adapter_root -> onItemClicked.onPositionClicked(adapterPosition)
         }
     }

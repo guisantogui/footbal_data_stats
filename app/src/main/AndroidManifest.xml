@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.curuto.footballdata">
+    package="com.curuto.footballdata" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,7 +14,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FootballData">
+        android:theme="@style/Theme.FootballData" >
+        <activity
+            android:name=".view.season_activity.SeasonActivity"
+            android:exported="false"
+            android:label="@string/title_activity_season"
+            android:theme="@style/Theme.FootballData.NoActionBar" />
+
         <receiver
             android:name=".services.DownloadCompletedBroadcastReceiver"
             android:enabled="true"
@@ -22,7 +28,7 @@
 
         <activity
             android:name=".view.main_activity.MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

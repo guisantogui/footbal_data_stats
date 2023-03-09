@@ -6,7 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil.inflate
 import androidx.databinding.ktx.BuildConfig
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -46,6 +48,10 @@ fun logE(text: String?, exception: Throwable) {
 
 fun ViewGroup.inflate(layoutRes: Int): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, false)
+}
+
+fun getInflater(context: Context) : LayoutInflater {
+    return LayoutInflater.from(context)
 }
 
 fun showSnackbar(v: View, message: String, length: Int){

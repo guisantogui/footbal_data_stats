@@ -28,8 +28,6 @@ open class ChampionshipAdapter
     override fun onBindViewHolder(holder: ChampionshipViewHolder, position: Int) {
         holder.bind(championshipData[position])
     }
-
-    fun rettext(): String {return "champs adapter"}
 }
 
 
