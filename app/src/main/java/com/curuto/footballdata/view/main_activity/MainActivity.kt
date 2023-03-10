@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.curuto.footballdata.DaggerFootbalDataApplicationComponent
+import com.curuto.footballdata.DaggerFootballDataApplicationComponent
 import com.curuto.footballdata.databinding.ActivityMainBinding
 import com.curuto.footballdata.utils.logD
 import com.curuto.footballdata.utils.showSnackbar
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(view)
 
         //Deixando de criar componente na application, e criando na activity
-        val myComp = DaggerFootbalDataApplicationComponent.builder()
+        val myComp = DaggerFootballDataApplicationComponent.builder()
                         .championshipAdapterModule(ChampionshipAdapterModule(donwloadChampionshipData(), onRowItemClicked()))
                         .build()
 
@@ -71,6 +71,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         return object : OnRowClicked {
             override fun onPositionClicked(index: Int) {
                 val item = championshipAdapter.getItem(index)
+
+                //Chamar activity Season
 
                 logD("ON ROW CLICKED <<<")
             }

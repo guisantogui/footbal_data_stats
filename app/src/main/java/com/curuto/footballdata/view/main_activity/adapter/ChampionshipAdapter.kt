@@ -35,6 +35,7 @@ open class ChampionshipAdapter
 open class ChampionshipAdapterModule(private val onDowloadDataClicked: OnRowClicked,
                                      private val onItemRowClicked: OnRowClicked) {
 
+
     @Provides
     open fun getEmptyAdapter(): ChampionshipAdapter {
         val championshipViewModel = ChampionshipViewModel()

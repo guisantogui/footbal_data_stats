@@ -65,11 +65,11 @@ class FootballDataApplication : Application() {
 
                     val innerItem = seasons.optJSONObject(j)
 
-                    //val innerItemName = item.getString("season") campo não usado no objeto seed, mas será mantido para talvez uso futuro
+                    val period = item.getString("season")
                     val downloadDataLink = innerItem.getString("download_data")
                     val seasonCode = innerItem.getString("season_code")
 
-                    seasonList.add(Season(UUID.randomUUID(), downloadDataLink,seasonCode, RealmList<Match>()))
+                    seasonList.add(Season(UUID.randomUUID(), downloadDataLink, seasonCode, period, RealmList<Match>()))
                 }
 
                 val championship = Championship(UUID.randomUUID(), championshipName, championshipCode, seasonList)

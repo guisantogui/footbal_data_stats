@@ -9,12 +9,13 @@ import javax.inject.Inject
 
 @RealmClass
 open class Season(@PrimaryKey var id: UUID,
-             var dataUrl: String,
-             var code: String,
-             var matches: RealmList<Match>,) : RealmObject() {
+                var dataUrl: String,
+                var code: String,
+                var period: String,
+                var matches: RealmList<Match>,) : RealmObject() {
 
     @Inject
-    constructor(): this(UUID.randomUUID(),"","", RealmList(),){}
+    constructor(): this(UUID.randomUUID(),"","", "", RealmList(),){}
 
 
 }

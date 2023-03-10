@@ -19,6 +19,7 @@ import java.io.File
 class ChampionshipViewModel @Inject constructor() {
 
     @Inject lateinit var downloadBroadcastReceiver : DownloadCompletedBroadcastReceiver
+    @Inject lateinit var realm: Realm
 
     init {
         val realmComponent = DaggerRealmComponent.create()
@@ -26,7 +27,7 @@ class ChampionshipViewModel @Inject constructor() {
     }
 
     fun getAllChampionships(): RealmResults<Championship> {
-        return Realm.getDefaultInstance().where(Championship::class.java).findAllAsync()
+        return realm.where(Championship::class.java).findAllAsync()
     }
 
     fun addChampionship(name: String) {

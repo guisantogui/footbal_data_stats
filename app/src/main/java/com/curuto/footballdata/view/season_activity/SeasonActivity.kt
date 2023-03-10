@@ -5,13 +5,17 @@ import android.os.Bundle
 import com.curuto.footballdata.databinding.ActivityMainBinding
 import com.curuto.footballdata.utils.showSnackbar
 import com.curuto.footballdata.view.custom.OnRowClicked
+import com.curuto.footballdata.view.season_activity.adapter.SeasonAdapter
+import com.curuto.footballdata.view.season_activity.adapter.SeasonAdapterModule
 import com.google.android.material.snackbar.Snackbar
+import javax.inject.Inject
 
 
 class SeasonActivity : AppCompatActivity() {
 
-
     lateinit var binding: ActivityMainBinding
+
+    @Inject lateinit var seasonAdapter: SeasonAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,21 +24,42 @@ class SeasonActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        val component =
+            DaggerSeasonComponent.builder().seasonAdapterModule(
+                SeasonAdapterModule(
+                    downloadChampionshipSeasonData(),
+                    openSeasonDataDetails()
+                )
+            ).build()
+
+        component.inject(this)
 
     }
 
-
-
-    fun donwloadChampionshipSeasonData(): OnRowClicked {
+    private fun downloadChampionshipSeasonData(): OnRowClicked {
         return object : OnRowClicked {
             override fun onPositionClicked(index: Int) {
-               // val item = championshipAdapter.getItem(index)
+                 val item = seasonAdapter.getItem(index)
 
-               /* if(item != null){
-                    championshipViewModel.donwloadChampionshipData(item, applicationContext)
-                }*/
+                 if(item != null){
+                     //championshipViewModel.donwloadChampionshipData(item, applicationContext)
+                 }
 
-                showSnackbar(binding.llcChampionshipListRoot, "Clicked", Snackbar.LENGTH_SHORT)
+                showSnackbar(binding.llcChampionshipListRoot, "Clicked DOWLOAD", Snackbar.LENGTH_SHORT)
+            }
+        }
+    }
+
+    private fun openSeasonDataDetails(): OnRowClicked {
+        return object : OnRowClicked {
+            override fun onPositionClicked(index: Int) {
+                val item = seasonAdapter.getItem(index)
+
+                if(item != null){
+                    //championshipViewModel.donwloadChampionshipData(item, applicationContext)
+                }
+
+                showSnackbar(binding.llcChampionshipListRoot, "Clicked ITEM", Snackbar.LENGTH_SHORT)
             }
         }
     }

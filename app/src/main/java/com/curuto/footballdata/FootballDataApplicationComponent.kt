@@ -11,7 +11,7 @@ import dagger.Component
                         ChampionshipAdapterModule::class,
                         RealmModule::class,
                     ])
-interface FootbalDataApplicationComponent {
+interface FootballDataApplicationComponent {
 
     fun inject(activity: MainActivity)
     fun inject(championshipViewModel: ChampionshipViewModel)
