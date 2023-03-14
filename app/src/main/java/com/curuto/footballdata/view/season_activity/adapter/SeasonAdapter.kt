@@ -37,12 +37,10 @@ open class SeasonAdapter
 open class SeasonAdapterModule(val onDowloadDataClicked: OnRowClicked,
                                val onItemRowClicked: OnRowClicked){
 
-    @Inject lateinit var seasonViewModel: SeasonViewModel
-
     @Provides
     open fun getEmptyAdapter(): SeasonAdapter {
 
-        val seasons = seasonViewModel.getAllSeasonsByChampionship(UUID.randomUUID())
+        val seasons = SeasonViewModel().getAllSeasonsByChampionship(UUID.randomUUID())
         return SeasonAdapter(seasons, onDowloadDataClicked, onItemRowClicked)
     }
 }

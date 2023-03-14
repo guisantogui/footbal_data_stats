@@ -1,16 +1,19 @@
 package com.curuto.footballdata.view.main_activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.curuto.footballdata.DaggerFootballDataApplicationComponent
 import com.curuto.footballdata.databinding.ActivityMainBinding
+import com.curuto.footballdata.utils.EXTRA_ID
 import com.curuto.footballdata.utils.logD
 import com.curuto.footballdata.utils.showSnackbar
 import com.curuto.footballdata.view.custom.OnRowClicked
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapter
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapterModule
+import com.curuto.footballdata.view.season_activity.SeasonActivity
 import com.curuto.footballdata.viewModel.ChampionshipViewModel
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
@@ -71,6 +74,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         return object : OnRowClicked {
             override fun onPositionClicked(index: Int) {
                 val item = championshipAdapter.getItem(index)
+
+                val intent = Intent(this@MainActivity, SeasonActivity::class.java)
+                intent.putExtra(EXTRA_ID, item?.id.toString())
+
+                startActivity(intent)
 
                 //Chamar activity Season
 

@@ -2,6 +2,7 @@ package com.curuto.footballdata.view.season_activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.curuto.footballdata.databinding.ActivityMainBinding
 import com.curuto.footballdata.utils.showSnackbar
 import com.curuto.footballdata.view.custom.OnRowClicked
@@ -33,6 +34,9 @@ class SeasonActivity : AppCompatActivity() {
             ).build()
 
         component.inject(this)
+
+        binding.rvChampionshipList.adapter = seasonAdapter
+        binding.rvChampionshipList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
     }
 

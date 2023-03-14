@@ -65,7 +65,7 @@ class FootballDataApplication : Application() {
 
                     val innerItem = seasons.optJSONObject(j)
 
-                    val period = item.getString("season")
+                    val period = innerItem.getString("season")
                     val downloadDataLink = innerItem.getString("download_data")
                     val seasonCode = innerItem.getString("season_code")
 
