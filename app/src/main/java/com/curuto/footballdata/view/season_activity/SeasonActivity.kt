@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.curuto.footballdata.databinding.ActivityMainBinding
+import com.curuto.footballdata.utils.EXTRA_ID
 import com.curuto.footballdata.utils.showSnackbar
 import com.curuto.footballdata.view.custom.OnRowClicked
 import com.curuto.footballdata.view.season_activity.adapter.SeasonAdapter
 import com.curuto.footballdata.view.season_activity.adapter.SeasonAdapterModule
+import com.curuto.footballdata.viewModel.SeasonViewModel
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 import javax.inject.Inject
 
 
@@ -17,6 +20,7 @@ class SeasonActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
     @Inject lateinit var seasonAdapter: SeasonAdapter
+    @Inject lateinit var seasonViewModel: SeasonViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,11 +29,13 @@ class SeasonActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        val championshipId = UUID.fromString(intent.getStringExtra(EXTRA_ID))
+
         val component =
             DaggerSeasonComponent.builder().seasonAdapterModule(
                 SeasonAdapterModule(
                     downloadChampionshipSeasonData(),
-                    openSeasonDataDetails()
+                    championshipId
                 )
             ).build()
 
@@ -46,10 +52,10 @@ class SeasonActivity : AppCompatActivity() {
                  val item = seasonAdapter.getItem(index)
 
                  if(item != null){
-                     //championshipViewModel.donwloadChampionshipData(item, applicationContext)
+                     seasonViewModel.downloadSeasonData(item, this@SeasonActivity)
                  }
 
-                showSnackbar(binding.llcChampionshipListRoot, "Clicked DOWLOAD", Snackbar.LENGTH_SHORT)
+                showSnackbar(binding.llcChampionshipListRoot, "Clicked DOWNLOAD", Snackbar.LENGTH_SHORT)
             }
         }
     }
@@ -57,13 +63,11 @@ class SeasonActivity : AppCompatActivity() {
     private fun openSeasonDataDetails(): OnRowClicked {
         return object : OnRowClicked {
             override fun onPositionClicked(index: Int) {
-                val item = seasonAdapter.getItem(index)
+                //val item = seasonAdapter.getItem(index)
 
-                if(item != null){
-                    //championshipViewModel.donwloadChampionshipData(item, applicationContext)
-                }
-
-                showSnackbar(binding.llcChampionshipListRoot, "Clicked ITEM", Snackbar.LENGTH_SHORT)
+               /* if(item != null){
+                    val a = true
+                }*/
             }
         }
     }

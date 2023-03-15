@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.curuto.footballdata.DaggerFootballDataApplicationComponent
 import com.curuto.footballdata.databinding.ActivityMainBinding
 import com.curuto.footballdata.utils.EXTRA_ID
-import com.curuto.footballdata.utils.logD
 import com.curuto.footballdata.utils.showSnackbar
 import com.curuto.footballdata.view.custom.OnRowClicked
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapter
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         //Deixando de criar componente na application, e criando na activity
         val myComp = DaggerFootballDataApplicationComponent.builder()
-                        .championshipAdapterModule(ChampionshipAdapterModule(donwloadChampionshipData(), onRowItemClicked()))
+                        .championshipAdapterModule(ChampionshipAdapterModule(downloadChampionshipData(), onRowItemClicked()))
                         .build()
 
         myComp.inject(this)
@@ -47,16 +46,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(p0: View?) {
-        when(p0?.id){
-            /*R.id.acb_add_championship -> {
+        /*when(p0?.id){
+            R.id.acb_add_championship -> {
                 championshipViewModel.addChampionship("SUPER LIGA VIEW MODEL")
                 logD("CLICKED ADD CHAMPS")
-            }*/
-        }
+            }
+        }*/
     }
 
 
-    fun donwloadChampionshipData(): OnRowClicked {
+    private fun downloadChampionshipData(): OnRowClicked {
         return object : OnRowClicked {
             override fun onPositionClicked(index: Int) {
                 val item = championshipAdapter.getItem(index)
@@ -70,7 +69,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun onRowItemClicked(): OnRowClicked {
+    private fun onRowItemClicked(): OnRowClicked {
         return object : OnRowClicked {
             override fun onPositionClicked(index: Int) {
                 val item = championshipAdapter.getItem(index)
@@ -79,10 +78,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 intent.putExtra(EXTRA_ID, item?.id.toString())
 
                 startActivity(intent)
-
-                //Chamar activity Season
-
-                logD("ON ROW CLICKED <<<")
             }
         }
     }

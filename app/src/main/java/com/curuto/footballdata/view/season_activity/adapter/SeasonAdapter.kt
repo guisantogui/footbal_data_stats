@@ -11,21 +11,21 @@ import com.curuto.footballdata.viewModel.SeasonViewModel
 import dagger.Module
 import dagger.Provides
 import io.realm.OrderedRealmCollection
+import io.realm.RealmList
 import io.realm.RealmRecyclerViewAdapter
 import java.util.*
 import javax.inject.Inject
 
 open class SeasonAdapter
     @Inject constructor (var seasonData: OrderedRealmCollection<Season>,
-                         val onDowloadDataClicked: OnRowClicked,
-                         val onItemRowClicked: OnRowClicked) :
+                         val onDowloadDataClicked: OnRowClicked) :
     RealmRecyclerViewAdapter<Season, SeasonViewHolder>(seasonData, true) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeasonViewHolder {
         val rowItemSeasonBinding =
             RowItemSeasonBinding.inflate(getInflater(parent.context), parent, false)
-        return SeasonViewHolder(rowItemSeasonBinding)
+        return SeasonViewHolder(rowItemSeasonBinding, onDowloadDataClicked)
     }
 
     override fun onBindViewHolder(holder: SeasonViewHolder, position: Int) {
@@ -35,12 +35,16 @@ open class SeasonAdapter
 
 @Module
 open class SeasonAdapterModule(val onDowloadDataClicked: OnRowClicked,
-                               val onItemRowClicked: OnRowClicked){
+                               val championshipId: UUID){
 
     @Provides
     open fun getEmptyAdapter(): SeasonAdapter {
 
-        val seasons = SeasonViewModel().getAllSeasonsByChampionship(UUID.randomUUID())
-        return SeasonAdapter(seasons, onDowloadDataClicked, onItemRowClicked)
+        var seasons = SeasonViewModel().getAllSeasonsByChampionship(championshipId)
+        if(seasons == null){
+            seasons = RealmList<Season>()
+        }
+
+        return SeasonAdapter(seasons, onDowloadDataClicked)
     }
 }
