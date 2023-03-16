@@ -9,6 +9,7 @@ import io.realm.RealmResults
 import javax.inject.Inject
 import android.os.Environment
 import android.widget.Toast
+import com.curuto.footballdata.repository.ChampionshipRepository
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import com.curuto.footballdata.services.DownloadCompletedBroadcastReceiver
 import com.curuto.footballdata.services.EasyDownloadManager
@@ -19,7 +20,7 @@ import java.io.File
 class ChampionshipViewModel @Inject constructor() {
 
     @Inject lateinit var downloadBroadcastReceiver : DownloadCompletedBroadcastReceiver
-    @Inject lateinit var realm: Realm
+    @Inject lateinit var repository: ChampionshipRepository
 
     init {
         val realmComponent = DaggerRealmComponent.create()
@@ -27,7 +28,7 @@ class ChampionshipViewModel @Inject constructor() {
     }
 
     fun getAllChampionships(): RealmResults<Championship> {
-        return realm.where(Championship::class.java).findAllAsync()
+        return repository.getAllChampionships()
     }
 
     fun addChampionship(name: String) {
@@ -38,7 +39,7 @@ class ChampionshipViewModel @Inject constructor() {
 
 
     fun donwloadChampionshipData(championship: Championship, context: Context) {
-        /*val path = File(Environment.getExternalStorageDirectory(), DOWNLOAD)
+        val path = File(Environment.getExternalStorageDirectory(), DOWNLOAD)
         if (!path.exists()) {
             path.mkdirs()
         }
@@ -48,6 +49,6 @@ class ChampionshipViewModel @Inject constructor() {
                     path.absolutePath + "/" + championship.code+championship.season +".csv",
             "championship.dataUrl")
 
-        context.registerReceiver(downloadBroadcastReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))*/
+        context.registerReceiver(downloadBroadcastReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
     }
 }

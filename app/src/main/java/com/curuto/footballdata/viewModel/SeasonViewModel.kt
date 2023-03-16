@@ -6,6 +6,7 @@ import android.content.IntentFilter
 import android.os.Environment
 import com.curuto.footballdata.model.Championship
 import com.curuto.footballdata.model.Season
+import com.curuto.footballdata.repository.ChampionshipRepository
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import com.curuto.footballdata.services.DownloadCompletedBroadcastReceiver
 import com.curuto.footballdata.services.EasyDownloadManager
@@ -21,16 +22,16 @@ import javax.inject.Inject
 class SeasonViewModel @Inject constructor() {
 
     @Inject lateinit var downloadBroadcastReceiver : DownloadCompletedBroadcastReceiver
-    @Inject lateinit var realm: Realm
+    @Inject lateinit var championshipRepository: ChampionshipRepository
 
     init {
         DaggerRealmComponent.create().inject(this)
     }
 
     fun getAllSeasonsByChampionship(championshipId: UUID): RealmList<Season>? {
-        val championship = realm.where(Championship::class.java).equalTo("id", championshipId).findFirst();
+        val seasons = championshipRepository.getAllSeasonsByChampionship(championshipId)
 
-        return championship?.season;
+        return seasons
     }
 
     fun downloadSeasonData(season: Season, context: Context){

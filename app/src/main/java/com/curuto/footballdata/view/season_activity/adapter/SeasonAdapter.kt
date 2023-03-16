@@ -17,6 +17,7 @@ import java.util.*
 import javax.inject.Inject
 
 open class SeasonAdapter
+
     @Inject constructor (var seasonData: OrderedRealmCollection<Season>,
                          val onDowloadDataClicked: OnRowClicked) :
     RealmRecyclerViewAdapter<Season, SeasonViewHolder>(seasonData, true) {
