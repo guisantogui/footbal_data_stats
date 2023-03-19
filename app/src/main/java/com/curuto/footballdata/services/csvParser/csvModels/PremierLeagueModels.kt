@@ -20,17 +20,8 @@ class PremierLeague20192023Model : CSVModel() {
         val ftagIndex = array.indexOf("FTAG")
         val ftrIndex = array.indexOf("FTR")
 
-        val teamRepository = TeamRepository()
-
-        var homeTeam = teamRepository.getTeamByName(array[homeTeamIndex])
-        if(homeTeam == null){
-            homeTeam = Team(UUID.randomUUID(), array[homeTeamIndex])
-        }
-
-        var awayTeam = teamRepository.getTeamByName(array[awayTeamIndex])
-        if(awayTeam == null){
-            awayTeam = Team(UUID.randomUUID(), array[awayTeamIndex])
-        }
+        val homeTeam = getTeam(array[homeTeamIndex])
+        val awayTeam = getTeam(array[awayTeamIndex])
 
         val date = DateTime.parse(array[dateIndex].trim()+" "+array[timeIndex].trim())
         val ftr = array[ftrIndex].trim()
@@ -57,18 +48,8 @@ class PremierLeague20032018Model : CSVModel() {
         val ftagIndex = array.indexOf("FTAG")
         val ftrIndex = array.indexOf("FTR")
 
-        val teamRepository = TeamRepository()
-
-        var homeTeam = teamRepository.getTeamByName(array[homeTeamIndex])
-        if(homeTeam == null){
-            homeTeam = Team(UUID.randomUUID(), array[homeTeamIndex])
-        }
-
-        var awayTeam = teamRepository.getTeamByName(array[awayTeamIndex])
-        if(awayTeam == null){
-            awayTeam = Team(UUID.randomUUID(), array[awayTeamIndex])
-        }
-
+        val homeTeam = getTeam(array[homeTeamIndex])
+        val awayTeam = getTeam(array[awayTeamIndex])
 
         val date = DateTime.parse(array[dateIndex].trim())
         val ftr = array[ftrIndex].trim()
@@ -81,43 +62,88 @@ class PremierLeague20032018Model : CSVModel() {
         return match
     }
 
-/*
-    override fun matchDownloadedModel(downloadedColumns: Array<String>): Boolean {
-        val premierLeague20032019 = listOf("Div", "Date", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR", "HTHG", "HTAG", "HTR", "Referee", "HS", "AS", "HST", "AST", "HF", "AF", "HC", "AC", "HY", "AY", "HR", "AR")
-
-        return premierLeague20032019.all { downloadedColumns.contains(it) }
-    }*/
 }
-/*
-class PremierLeague20012002Model : CSVModel {
 
-    override val id: Int = PREMIERLEAGUE20012002MODEL
 
-    override fun matchDownloadedModel(downloadedColumns: Array<String>): Boolean {
-        val premierLeague20012002 = listOf("Div", "Date", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR", "HTHG", "HTAG", "HTR", "Attendance", "Referee", "HS", "AS", "HST", "AST", "HHW", "AHW", "HC", "AC", "HF", "AF", "HO", "AO", "HY", "AY", "HR", "AR", "HBP", "ABP")
+class PremierLeague20012002Model : CSVModel() {
 
-        return premierLeague20012002.all { downloadedColumns.contains(it) }
+    override var columnModelList = listOf("Div", "Date", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR", "HTHG", "HTAG", "HTR", "Attendance", "Referee", "HS", "AS", "HST", "AST", "HHW", "AHW", "HF", "AF", "HC", "AC", "HO", "AO", "HY", "AY", "HR", "AR", "HBP","ABP","GBH","GBD","GBA","IWH","IWD","IWA","LBH","LBD","LBA","SBH","SBD","SBA","SYH","SYD","SYA","WHH","WHD","WHA")
+
+    override fun readLine(array: Array<String>): Match {
+
+        val dateIndex = array.indexOf("Date")
+        val homeTeamIndex = array.indexOf("HomeTeam")
+        val awayTeamIndex = array.indexOf("AwayTeam")
+        val fthgIndex = array.indexOf("FTHG")
+        val ftagIndex = array.indexOf("FTAG")
+        val ftrIndex = array.indexOf("FTR")
+
+        val homeTeam = getTeam(array[homeTeamIndex])
+        val awayTeam = getTeam(array[awayTeamIndex])
+
+        val date = DateTime.parse(array[dateIndex].trim())
+        val ftr = array[ftrIndex].trim()
+
+        val fthg = Integer.parseInt(array[fthgIndex].trim())
+        val ftag = Integer.parseInt(array[ftagIndex].trim())
+
+        val match = Match(UUID.randomUUID(), homeTeam, awayTeam, date.toDate(), ftr, fthg, ftag)
+
+        return match
+    }
+
+}
+
+class PremierLeague19962000Model : CSVModel() {
+
+    override var columnModelList = listOf("Div","Date","HomeTeam","AwayTeam","FTHG","FTAG","FTR","HTHG","HTAG","HTR")
+
+    override fun readLine(array: Array<String>): Match {
+        val dateIndex = array.indexOf("Date")
+        val homeTeamIndex = array.indexOf("HomeTeam")
+        val awayTeamIndex = array.indexOf("AwayTeam")
+        val fthgIndex = array.indexOf("FTHG")
+        val ftagIndex = array.indexOf("FTAG")
+        val ftrIndex = array.indexOf("FTR")
+
+        val homeTeam = getTeam(array[homeTeamIndex])
+        val awayTeam = getTeam(array[awayTeamIndex])
+
+        val date = DateTime.parse(array[dateIndex].trim())
+        val ftr = array[ftrIndex].trim()
+
+        val fthg = Integer.parseInt(array[fthgIndex].trim())
+        val ftag = Integer.parseInt(array[ftagIndex].trim())
+
+        val match = Match(UUID.randomUUID(), homeTeam, awayTeam, date.toDate(), ftr, fthg, ftag)
+
+        return match
     }
 }
 
-class PremierLeague19962000Model : CSVModel {
+class PremierLeague19941995Model : CSVModel() {
 
-    override val id: Int = PREMIERLEAGUE19962000MODEL
+    override var columnModelList = listOf("Div","Date","HomeTeam","AwayTeam","FTHG","FTAG","FTR")
 
-    override fun matchDownloadedModel(downloadedColumns: Array<String>): Boolean {
-        val premierLeague19962000 = listOf("Div",  "Date",  "HomeTeam",  "AwayTeam",  "FTHG",  "FTAG",  "FTR",  "HTHG",  "HTAG",  "HT")
+    override fun readLine(array: Array<String>): Match {
+        val dateIndex = array.indexOf("Date")
+        val homeTeamIndex = array.indexOf("HomeTeam")
+        val awayTeamIndex = array.indexOf("AwayTeam")
+        val fthgIndex = array.indexOf("FTHG")
+        val ftagIndex = array.indexOf("FTAG")
+        val ftrIndex = array.indexOf("FTR")
 
-        return premierLeague19962000.all { downloadedColumns.contains(it) }
+        val homeTeam = getTeam(array[homeTeamIndex])
+        val awayTeam = getTeam(array[awayTeamIndex])
+
+        val date = DateTime.parse(array[dateIndex].trim())
+        val ftr = array[ftrIndex].trim()
+
+        val fthg = Integer.parseInt(array[fthgIndex].trim())
+        val ftag = Integer.parseInt(array[ftagIndex].trim())
+
+        val match = Match(UUID.randomUUID(), homeTeam, awayTeam, date.toDate(), ftr, fthg, ftag)
+
+        return match
     }
 }
-
-class PremierLeague19941995Model : CSVModel {
-
-    override val id: Int = PREMIERLEAGUE19941995MODEL
-
-    override fun matchDownloadedModel(downloadedColumns: Array<String>): Boolean {
-        val premierLeague19941995 = listOf("Div",  "Date",  "HomeTeam",  "AwayTeam",  "FTHG",  "FTAG",  "FTR")
-
-        return premierLeague19941995.all { downloadedColumns.contains(it) }
-    }
-}*/

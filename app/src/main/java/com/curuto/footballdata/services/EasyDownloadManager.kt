@@ -11,7 +11,6 @@ object EasyDownloadManager {
 
     fun startDowload(context: Context, downloadPath: String, url: String){
 
-        logD(downloadPath)
         val storedFile = File(downloadPath)
         val request = DownloadManager.Request(Uri.parse(url))
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
@@ -30,4 +29,6 @@ object EasyDownloadManager {
 
         return inputStreamReader;
     }
+
+
 }

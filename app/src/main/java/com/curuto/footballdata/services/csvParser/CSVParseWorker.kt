@@ -26,7 +26,7 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
         val lines = reader.readAll()
 
         val models =
-            listOf(/*PremierLeague19941995Model(), PremierLeague19962000Model(), PremierLeague20012002Model(),*/
+            listOf(PremierLeague19941995Model(), PremierLeague19962000Model(), PremierLeague20012002Model(),
                 PremierLeague20032018Model(), PremierLeague20192023Model(), OtherLeaguesModel()
             )
 
@@ -45,7 +45,7 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
                 }
             }
         }
-
+        
 
 
         //TODO: remover o arquivo

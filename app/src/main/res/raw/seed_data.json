@@ -47,6 +47,111 @@
         "season": "2014-2015",
         "download_data": "https://www.football-data.co.uk/mmz4281/1415/E0.csv",
         "season_code": "1415"
+      },
+      {
+        "season": "2013-2014",
+        "download_data": "https://www.football-data.co.uk/mmz4281/1314/E0.csv",
+        "season_code": "1314"
+      },
+      {
+        "season": "2012-2013",
+        "download_data": "https://www.football-data.co.uk/mmz4281/1213/E0.csv",
+        "season_code": "1213"
+      },
+      {
+        "season": "2011-2012",
+        "download_data": "https://www.football-data.co.uk/mmz4281/1112/E0.csv",
+        "season_code": "1112"
+      },
+      {
+        "season": "2010-2011",
+        "download_data": "https://www.football-data.co.uk/mmz4281/1011/E0.csv",
+        "season_code": "1011"
+      },
+      {
+        "season": "2009-2010",
+        "download_data": "https://www.football-data.co.uk/mmz4281/0910/E0.csv",
+        "season_code": "0910"
+      },
+      {
+        "season": "2008-2009",
+        "download_data": "https://www.football-data.co.uk/mmz4281/0809/E0.csv",
+        "season_code": "0809"
+      },
+      {
+        "season": "2007-2008",
+        "download_data": "https://www.football-data.co.uk/mmz4281/0708/E0.csv",
+        "season_code": "0708"
+      },
+      {
+        "season": "2006-2007",
+        "download_data": "https://www.football-data.co.uk/mmz4281/0607/E0.csv",
+        "season_code": "0607"
+      },
+      {
+        "season": "2005-2006",
+        "download_data": "https://www.football-data.co.uk/mmz4281/0506/E0.csv",
+        "season_code": "0506"
+      },
+      {
+        "season": "2004-2005",
+        "download_data": "https://www.football-data.co.uk/mmz4281/0405/E0.csv",
+        "season_code": "0405"
+      },
+      {
+        "season": "2003-2004",
+        "download_data": "https://www.football-data.co.uk/mmz4281/0304/E0.csv",
+        "season_code": "0304"
+      },
+      {
+        "season": "2002-2003",
+        "download_data": "https://www.football-data.co.uk/mmz4281/0203/E0.csv",
+        "season_code": "0203"
+      },
+      {
+        "season": "2001-2002",
+        "download_data": "https://www.football-data.co.uk/mmz4281/0102/E0.csv",
+        "season_code": "0102"
+      },
+      {
+        "season": "2000-2001",
+        "download_data": "https://www.football-data.co.uk/mmz4281/0001/E0.csv",
+        "season_code": "0001"
+      },
+      {
+        "season": "1999-2000",
+        "download_data": "https://www.football-data.co.uk/mmz4281/9900/E0.csv",
+        "season_code": "9900"
+      },
+      {
+        "season": "1998-1999",
+        "download_data": "https://www.football-data.co.uk/mmz4281/9899/E0.csv",
+        "season_code": "9899"
+      },
+      {
+        "season": "1997-1998",
+        "download_data": "https://www.football-data.co.uk/mmz4281/9798/E0.csv",
+        "season_code": "9798"
+      },
+      {
+        "season": "1996-1997",
+        "download_data": "https://www.football-data.co.uk/mmz4281/9697/E0.csv",
+        "season_code": "9697"
+      },
+      {
+        "season": "1995-1996",
+        "download_data": "https://www.football-data.co.uk/mmz4281/9596/E0.csv",
+        "season_code": "9596"
+      },
+      {
+        "season": "1994-1995",
+        "download_data": "https://www.football-data.co.uk/mmz4281/9495/E0.csv",
+        "season_code": "9495"
+      },
+      {
+        "season": "1993-1994",
+        "download_data": "https://www.football-data.co.uk/mmz4281/9394/E0.csv",
+        "season_code": "9394"
       }
     ]
   },
