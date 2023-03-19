@@ -59,12 +59,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         return object : OnRowClicked {
             override fun onPositionClicked(index: Int) {
                 val item = championshipAdapter.getItem(index)
+                var downloadQueued = false
 
                 if(item != null){
-                    championshipViewModel.donwloadChampionshipData(item, applicationContext)
+                    downloadQueued = championshipViewModel.donwloadChampionshipData(item, applicationContext)
                 }
 
-                showSnackbar(binding.llcChampionshipListRoot, "Clicked", Snackbar.LENGTH_SHORT)
+                if(downloadQueued){
+                    showSnackbar(binding.llcChampionshipListRoot, "Baixando todos dados", Snackbar.LENGTH_SHORT)
+                }
             }
         }
     }
