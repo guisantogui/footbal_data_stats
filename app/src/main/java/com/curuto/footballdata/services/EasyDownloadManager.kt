@@ -3,7 +3,6 @@ package com.curuto.footballdata.services
 import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
-import com.curuto.footballdata.utils.logD
 import java.io.File
 import java.io.InputStreamReader
 
@@ -22,12 +21,18 @@ object EasyDownloadManager {
     }
 
     fun getFileFromId(context: Context, id: Long) : InputStreamReader {
-        val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val uri: Uri = downloadManager.getUriForDownloadedFile(id)
+        val uri: Uri = getURI(context, id)
         val inputStream = context.contentResolver.openInputStream(uri)
         val inputStreamReader = InputStreamReader(inputStream)
 
         return inputStreamReader;
+    }
+
+    fun getURI(context:Context , id: Long): Uri {
+        val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val uri: Uri = downloadManager.getUriForDownloadedFile(id)
+
+        return uri
     }
 
 

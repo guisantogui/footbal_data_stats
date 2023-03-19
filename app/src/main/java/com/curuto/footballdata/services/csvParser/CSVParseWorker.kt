@@ -8,7 +8,10 @@ import com.curuto.footballdata.repository.TeamRepository
 import com.curuto.footballdata.services.EasyDownloadManager
 import com.curuto.footballdata.services.csvParser.csvModels.*
 import com.curuto.footballdata.utils.DOWNLOAD_ID
+import com.curuto.footballdata.utils.logD
+import com.curuto.footballdata.utils.logE
 import com.opencsv.CSVReader
+import java.io.File
 import javax.inject.Inject
 
 
@@ -33,7 +36,7 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
         val columns = lines[0]
 
         for (model in models) {
-            if (model.matchDownloadedModel(columns)) {
+            if (model.columnModelList.size == columns.size && model.matchDownloadedModel(columns)) {
                 for (i in 1..lines.size) {
                     val line = lines[i]
                     val match = model.readLine(line)
@@ -45,7 +48,18 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
                 }
             }
         }
-        
+
+        val uri = EasyDownloadManager.getURI(context, downloadId)
+        val file = File(uri.path)
+        if(file.exists()){
+            val deleted = file.delete()
+
+            logD("Deleted? $deleted")
+        }
+        else{
+            logE("File do not exists")
+        }
+
 
 
         //TODO: remover o arquivo
