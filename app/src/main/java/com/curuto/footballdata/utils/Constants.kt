@@ -17,6 +17,7 @@ const val DOWNLOAD_FOOTBALLDATA = "curuto_FootballData_Download"
 
 //Worker Parameters
 const val DOWNLOAD_ID = "DOWNLOAD_ID"
+const val FILE_PATH = "FILE_PATH"
 
 //System Folders
 const val DOWNLOAD = "Download"

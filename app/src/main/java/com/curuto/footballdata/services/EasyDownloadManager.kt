@@ -2,6 +2,7 @@ package com.curuto.footballdata.services
 
 import android.app.DownloadManager
 import android.content.Context
+import android.database.Cursor
 import android.net.Uri
 import java.io.File
 import java.io.InputStreamReader
@@ -21,19 +22,32 @@ object EasyDownloadManager {
     }
 
     fun getFileFromId(context: Context, id: Long) : InputStreamReader {
-        val uri: Uri = getURI(context, id)
+        val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val uri: Uri = downloadManager.getUriForDownloadedFile(id)
         val inputStream = context.contentResolver.openInputStream(uri)
         val inputStreamReader = InputStreamReader(inputStream)
 
-        return inputStreamReader;
+        return inputStreamReader
     }
+/**
+    fun getURI(context:Context , id: Long): String {
 
-    fun getURI(context:Context , id: Long): Uri {
-        val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val uri: Uri = downloadManager.getUriForDownloadedFile(id)
+        val manager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
-        return uri
-    }
+        val q = DownloadManager.Query()
+        q.setFilterById(id)
+        val c: Cursor = manager.query(q)
+
+        var title = ""
+
+        if (c.moveToFirst()) {
+            title = c.getString(c.getColumnIndex(DownloadManager.COLUMN_TITLE))
+            // get other required data by changing the constant passed to getColumnIndex
+        }
+
+        return title;
+
+    }*/
 
 
 }

@@ -8,10 +8,12 @@ import com.curuto.footballdata.repository.TeamRepository
 import com.curuto.footballdata.services.EasyDownloadManager
 import com.curuto.footballdata.services.csvParser.csvModels.*
 import com.curuto.footballdata.utils.DOWNLOAD_ID
+import com.curuto.footballdata.utils.FILE_PATH
 import com.curuto.footballdata.utils.logD
 import com.curuto.footballdata.utils.logE
 import com.opencsv.CSVReader
 import java.io.File
+import java.nio.file.Files
 import javax.inject.Inject
 
 
@@ -24,6 +26,7 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
     override fun doWork(): Result {
 
         val downloadId = inputData.getLong(DOWNLOAD_ID, -1L)
+        val rawFilePath = inputData.getString(FILE_PATH)
 
         val reader = CSVReader(EasyDownloadManager.getFileFromId(context, downloadId))
         val lines = reader.readAll()
@@ -49,17 +52,16 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
             }
         }
 
-        val uri = EasyDownloadManager.getURI(context, downloadId)
-        val file = File(uri.path)
-        if(file.exists()){
+        val filePath = rawFilePath?.subSequence(7, rawFilePath.length).toString()
+
+        val file = File(filePath)
+        if (file.exists()) {
             val deleted = file.delete()
 
             logD("Deleted? $deleted")
-        }
-        else{
+        } else {
             logE("File do not exists")
         }
-
 
 
         //TODO: remover o arquivo
