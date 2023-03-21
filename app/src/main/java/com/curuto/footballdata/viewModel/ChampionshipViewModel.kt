@@ -3,11 +3,13 @@ package com.curuto.footballdata.viewModel
 import android.app.DownloadManager
 import android.content.Context
 import android.content.IntentFilter
+import android.os.Build
 import com.curuto.footballdata.model.Championship
 import io.realm.Realm
 import io.realm.RealmResults
 import javax.inject.Inject
 import android.os.Environment
+import android.provider.MediaStore
 import android.widget.Toast
 import com.curuto.footballdata.model.Season
 import com.curuto.footballdata.repository.ChampionshipRepository

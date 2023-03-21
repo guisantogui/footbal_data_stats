@@ -3,7 +3,9 @@ package com.curuto.footballdata.viewModel
 import android.app.DownloadManager
 import android.content.Context
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Environment
+import android.provider.MediaStore
 import com.curuto.footballdata.model.Championship
 import com.curuto.footballdata.model.Season
 import com.curuto.footballdata.repository.ChampionshipRepository
@@ -35,6 +37,11 @@ class SeasonViewModel @Inject constructor() {
     }
 
     fun downloadSeasonData(season: Season, context: Context){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            MediaStore.Downloads.EXTERNAL_CONTENT_URI.path
+        }
+        //Modificar forma de store por causa do delete
 
         val path = File(Environment.getExternalStorageDirectory(), DOWNLOAD)
         if (!path.exists()) {
