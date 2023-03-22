@@ -3,19 +3,14 @@ package com.curuto.footballdata.viewModel
 import android.app.DownloadManager
 import android.content.Context
 import android.content.IntentFilter
-import android.os.Build
 import android.os.Environment
-import android.provider.MediaStore
-import com.curuto.footballdata.model.Championship
 import com.curuto.footballdata.model.Season
 import com.curuto.footballdata.repository.ChampionshipRepository
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import com.curuto.footballdata.services.DownloadCompletedBroadcastReceiver
 import com.curuto.footballdata.services.EasyDownloadManager
 import com.curuto.footballdata.utils.DOWNLOAD
-import io.realm.Realm
 import io.realm.RealmList
-import io.realm.RealmResults
 import java.io.File
 import java.util.*
 import javax.inject.Inject
@@ -36,22 +31,29 @@ class SeasonViewModel @Inject constructor() {
         return seasons
     }
 
-    fun downloadSeasonData(season: Season, context: Context){
+    fun downloadSeasonData(season: Season, context: Context) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            MediaStore.Downloads.EXTERNAL_CONTENT_URI.path
+        var path = ""
+       /* path = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            MediaStore.Downloads.DOWNLOAD_URI + "/" + season.code+season.period+".csv"
+        } else {
+
+            val legacyPath = File(Environment.getExternalStorageDirectory(), DOWNLOAD)
+            if (!legacyPath.exists()) {
+                legacyPath.mkdirs()
+            }
+
+            legacyPath.absolutePath + "/" + season.code+season.period+".csv"
+        }*/
+
+        val basePath = File(Environment.getExternalStorageDirectory(), DOWNLOAD)
+        if (!basePath.exists()) {
+            basePath.mkdirs()
         }
-        //Modificar forma de store por causa do delete
 
-        val path = File(Environment.getExternalStorageDirectory(), DOWNLOAD)
-        if (!path.exists()) {
-            path.mkdirs()
-        }
+        path = basePath.absolutePath + "/" + season.code+season.period+".csv"
 
-        EasyDownloadManager.startDowload(context,
-            path.absolutePath + "/" + season.code+season.period+".csv",
-            season.dataUrl)
-
+        EasyDownloadManager.startDowload(context, path, season.dataUrl)
         context.registerReceiver(downloadBroadcastReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
     }
 }

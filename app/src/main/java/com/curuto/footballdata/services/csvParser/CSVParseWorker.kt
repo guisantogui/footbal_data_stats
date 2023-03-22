@@ -58,6 +58,8 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
             }
         }
 
+        reader.close()
+
 
         //TODO: remover o arquivo
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -84,6 +86,20 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
             } else {
                 logE("File do not exists")
             }
+        }
+
+        val filePath = rawFilePath?.subSequence(7, rawFilePath.length).toString()
+        logD(filePath)
+
+        //filePath = "/storage/emulated/0/Download/whatsapp_image_2022-09-22_at_17.12.09.jpeg"
+
+        val file = File(filePath)
+        if (file.exists()) {
+            val deleted = file.delete()
+
+            logD("Deleted? $deleted")
+        } else {
+            logE("File do not exists")
         }
 
         return Result.success()
