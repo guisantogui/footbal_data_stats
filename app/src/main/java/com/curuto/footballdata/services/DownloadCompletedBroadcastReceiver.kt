@@ -11,6 +11,7 @@ import com.curuto.footballdata.utils.DOWNLOAD_ID
 import com.curuto.footballdata.utils.FILE_PATH
 import com.curuto.footballdata.utils.logD
 import com.curuto.footballdata.utils.logE
+import java.io.File
 import javax.inject.Inject
 
 
@@ -25,7 +26,10 @@ class DownloadCompletedBroadcastReceiver
             if(downloadId != -1L){
 
                 val path = getFileLocation(context, downloadId)
-                logD("LOAD TESTE NOME ARQUIVO: $path")
+
+                //filePath = "/storage/emulated/0/Download/whatsapp_image_2022-09-22_at_17.12.09.jpeg"
+
+                logD("Nome do aquivo brodacast: $path")
 
                 val workManager = WorkManager.getInstance(context)
                 val params = Data.Builder().putLong(DOWNLOAD_ID, downloadId).putString(FILE_PATH, path).build()

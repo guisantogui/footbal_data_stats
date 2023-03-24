@@ -4,6 +4,7 @@ import android.app.DownloadManager
 import android.content.Context
 import android.content.IntentFilter
 import android.os.Environment
+import android.provider.MediaStore
 import com.curuto.footballdata.model.Season
 import com.curuto.footballdata.repository.ChampionshipRepository
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
@@ -32,26 +33,12 @@ class SeasonViewModel @Inject constructor() {
     }
 
     fun downloadSeasonData(season: Season, context: Context) {
-
-        var path = ""
-       /* path = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            MediaStore.Downloads.DOWNLOAD_URI + "/" + season.code+season.period+".csv"
-        } else {
-
-            val legacyPath = File(Environment.getExternalStorageDirectory(), DOWNLOAD)
-            if (!legacyPath.exists()) {
-                legacyPath.mkdirs()
-            }
-
-            legacyPath.absolutePath + "/" + season.code+season.period+".csv"
-        }*/
-
-        val basePath = File(Environment.getExternalStorageDirectory(), DOWNLOAD)
+        val basePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
         if (!basePath.exists()) {
             basePath.mkdirs()
         }
 
-        path = basePath.absolutePath + "/" + season.code+season.period+".csv"
+        val path = basePath.absolutePath + "/" + season.code+season.period+".csv"
 
         EasyDownloadManager.startDowload(context, path, season.dataUrl)
         context.registerReceiver(downloadBroadcastReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))

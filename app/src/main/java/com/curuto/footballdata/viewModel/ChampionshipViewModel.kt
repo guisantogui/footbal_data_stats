@@ -62,11 +62,11 @@ class ChampionshipViewModel @Inject constructor() {
 
             context.registerReceiver(downloadBroadcastReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
-            seasons.forEach {
+            /*seasons.forEach {
                 EasyDownloadManager.startDowload(context,
                     path.absolutePath + "/" + championship.code+it.code+it.period +".csv",
                     it.dataUrl)
-            }
+            }*/
 
             donwloadQueued = true
 

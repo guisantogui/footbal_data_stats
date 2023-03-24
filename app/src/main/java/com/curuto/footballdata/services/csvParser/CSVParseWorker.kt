@@ -3,6 +3,7 @@ package com.curuto.footballdata.services.csvParser
 import android.content.Context
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.curuto.footballdata.repository.MatchRepository
@@ -61,39 +62,12 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
         reader.close()
 
 
-        //TODO: remover o arquivo
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val uri: Uri = MediaStore.Downloads.EXTERNAL_CONTENT_URI
-            logD("Path $uri.path")
-            val selection = MediaStore.Downloads._ID + "=?"
-            logD("selection $selection")
-            val selectionArgs = arrayOf<String>(java.lang.String.valueOf(downloadId))
-
-            logD("DONWLOAD ID: $downloadId")
-
-            val deleteint = context.contentResolver.delete(uri, selection, selectionArgs)
-
-            logD("status: $deleteint")
-
-        } else {
-            val filePath = rawFilePath?.subSequence(7, rawFilePath.length).toString()
-
-            val file = File(filePath)
-            if (file.exists()) {
-                val deleted = file.delete()
-
-                logD("Deleted? $deleted")
-            } else {
-                logE("File do not exists")
-            }
-        }
 
         val filePath = rawFilePath?.subSequence(7, rawFilePath.length).toString()
-        logD(filePath)
-
-        //filePath = "/storage/emulated/0/Download/whatsapp_image_2022-09-22_at_17.12.09.jpeg"
-
         val file = File(filePath)
+
+        logD("Absolute path delete file "+ file.absolutePath)
+
         if (file.exists()) {
             val deleted = file.delete()
 
