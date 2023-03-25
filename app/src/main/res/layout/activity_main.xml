@@ -10,20 +10,42 @@
     android:layout_margin="@dimen/root_item_default_margin"
     tools:context=".view.main_activity.MainActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_championship_list"
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    
+    
+    <ImageView
+        android:layout_margin="@dimen/iv_warning_icon_storage_permission"
+        android:id="@+id/iv_bg_warning_icon"
+        android:src="@drawable/ic_warning"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        />
+
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/acb_add_championship"
+        android:layout_margin="@dimen/item_default_margin"
+        android:id="@+id/acb_grant_permission"
         android:layout_gravity="center"
-        android:text="Add Championship"
+        android:visibility="gone"
+        android:text="Conceder Permissão"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
     </androidx.appcompat.widget.AppCompatButton>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_championship_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:id="@+id/tv_warning_message"
+        android:layout_margin="@dimen/item_default_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:gravity="center"
+        android:text="Você precisa dar permissão de storage para o app baixar os arquivos de dados" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

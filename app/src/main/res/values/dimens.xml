@@ -2,4 +2,8 @@
 <resources>
     <dimen name="root_item_default_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="item_default_margin">4dp</dimen>
+
+    <dimen name="iv_warning_icon_storage_permission">28dp</dimen>
+
 </resources>

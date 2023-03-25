@@ -6,14 +6,11 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.curuto.footballdata.DaggerFootballDataApplicationComponent
+import com.curuto.footballdata.R
 import com.curuto.footballdata.databinding.ActivityMainBinding
-import com.curuto.footballdata.utils.EXTRA_ID
-import com.curuto.footballdata.utils.logD
-import com.curuto.footballdata.utils.showSnackbar
+import com.curuto.footballdata.utils.*
 import com.curuto.footballdata.view.custom.OnRowClicked
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapter
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapterModule
@@ -51,37 +48,35 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         logD("Build sdk: "+ Build.VERSION.SDK_INT)
 
-
-        if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) {
-            // A permissão já foi concedida anteriormente
-            // Faça a ação necessária aqui, como ler ou escrever um arquivo
-        } else {
-            // A permissão ainda não foi concedida
-            // Solicite a permissão ao usuário
-            ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
+        if (!hasStoragePermission(this)) {
+            requestStoragePermission(this, requestCode)
         }
 
-        //binding.acbAddChampionship.setOnClickListener(this)
+        binding.acbGrantPermission.setOnClickListener(this)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == requestCode && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            // A permissão foi concedida pelo usuário
-            // Faça a ação necessária aqui, como ler ou escrever um arquivo
-            showSnackbar(binding.root, "ALLOWED", Snackbar.LENGTH_SHORT)
+            binding.rvChampionshipList.show()
+            binding.ivBgWarningIcon.hardHide()
+            binding.acbGrantPermission.hardHide()
+            binding.tvWarningMessage.hardHide()
+
         } else {
-            showSnackbar(binding.root, "DENIED", Snackbar.LENGTH_SHORT)
+            binding.rvChampionshipList.hardHide()
+            binding.ivBgWarningIcon.show()
+            binding.acbGrantPermission.show()
+            binding.tvWarningMessage.show()
         }
     }
 
     override fun onClick(p0: View?) {
-        /*when(p0?.id){
-            R.id.acb_add_championship -> {
-                championshipViewModel.addChampionship("SUPER LIGA VIEW MODEL")
-                logD("CLICKED ADD CHAMPS")
+        when(p0?.id){
+            R.id.acb_grant_permission -> {
+                requestStoragePermission(this, requestCode)
             }
-        }*/
+        }
     }
 
 

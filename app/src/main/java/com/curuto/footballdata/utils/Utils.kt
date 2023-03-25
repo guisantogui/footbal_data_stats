@@ -1,14 +1,15 @@
 package com.curuto.footballdata.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil.inflate
-import androidx.databinding.ktx.BuildConfig
-import androidx.viewbinding.ViewBinding
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -46,14 +47,22 @@ fun logE(text: String?, exception: Throwable) {
     }
 }
 
-fun ViewGroup.inflate(layoutRes: Int): View {
-    return LayoutInflater.from(context).inflate(layoutRes, this, false)
-}
-
 fun getInflater(context: Context) : LayoutInflater {
     return LayoutInflater.from(context)
 }
 
 fun showSnackbar(v: View, message: String, length: Int){
     Snackbar.make(v, message, length).show()
+}
+
+fun hasPermission(context: Context, permission: String) : Boolean{
+    return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
+}
+
+fun hasStoragePermission(context: Context) : Boolean {
+    return hasPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+}
+
+fun requestStoragePermission(activity: Activity, requestCode: Int){
+    ActivityCompat.requestPermissions(activity, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), requestCode)
 }

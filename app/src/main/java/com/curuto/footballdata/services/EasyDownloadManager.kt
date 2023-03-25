@@ -30,22 +30,3 @@ object EasyDownloadManager {
         return inputStreamReader
     }
 }
-/**
-    fun getURI(context:Context , id: Long): String {
-
-        val manager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-
-        val q = DownloadManager.Query()
-        q.setFilterById(id)
-        val c: Cursor = manager.query(q)
-
-        var title = ""
-
-        if (c.moveToFirst()) {
-            title = c.getString(c.getColumnIndex(DownloadManager.COLUMN_TITLE))
-            // get other required data by changing the constant passed to getColumnIndex
-        }
-
-        return title;
-
-    }*/
