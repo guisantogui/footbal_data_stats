@@ -51,23 +51,21 @@ class ChampionshipViewModel @Inject constructor() {
 
     fun donwloadChampionshipData(championship: Championship, context: Context): Boolean {
         var donwloadQueued = false
-        val path = File(Environment.getExternalStorageDirectory(), DOWNLOAD)
-        if (!path.exists()) {
-            path.mkdirs()
+
+        val basePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        if (!basePath.exists()) {
+            basePath.mkdirs()
         }
 
         val seasons = getAllSeasonsByChampionship(championship.id)
 
         if(seasons != null && seasons.size > 0){
-
             context.registerReceiver(downloadBroadcastReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
-
-            /*seasons.forEach {
+            seasons.forEach {
                 EasyDownloadManager.startDowload(context,
-                    path.absolutePath + "/" + championship.code+it.code+it.period +".csv",
+                    basePath.absolutePath + "/" + championship.code+it.code+it.period +".csv",
                     it.dataUrl)
-            }*/
-
+            }
             donwloadQueued = true
 
         }
