@@ -1,24 +1,18 @@
-package com.curuto.footballdata.viewModel
+package com.curuto.footballdata.view.main_activity.view_model
 
 import android.app.DownloadManager
 import android.content.Context
 import android.content.IntentFilter
-import android.os.Build
 import com.curuto.footballdata.model.Championship
-import io.realm.Realm
 import io.realm.RealmResults
 import javax.inject.Inject
 import android.os.Environment
-import android.provider.MediaStore
-import android.widget.Toast
 import com.curuto.footballdata.model.Season
 import com.curuto.footballdata.repository.ChampionshipRepository
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import com.curuto.footballdata.services.DownloadCompletedBroadcastReceiver
 import com.curuto.footballdata.services.EasyDownloadManager
-import com.curuto.footballdata.utils.DOWNLOAD
 import io.realm.RealmList
-import java.io.File
 import java.util.*
 
 

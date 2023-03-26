@@ -9,7 +9,7 @@ import com.curuto.footballdata.utils.showSnackbar
 import com.curuto.footballdata.view.custom.OnRowClicked
 import com.curuto.footballdata.view.season_activity.adapter.SeasonAdapter
 import com.curuto.footballdata.view.season_activity.adapter.SeasonAdapterModule
-import com.curuto.footballdata.viewModel.SeasonViewModel
+import com.curuto.footballdata.view.season_activity.view_model.SeasonViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 import javax.inject.Inject

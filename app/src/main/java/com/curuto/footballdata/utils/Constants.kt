@@ -26,3 +26,8 @@ const val DOWNLOAD = "Download"
 
 //Intent Extras
 const val EXTRA_ID = "EXTRA_ID"
+
+
+//Permissions
+
+const val STORAGE_PERMISSION_CODE = 9999

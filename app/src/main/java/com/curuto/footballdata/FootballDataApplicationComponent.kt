@@ -4,7 +4,7 @@ import com.curuto.footballdata.repository.realm.RealmModule
 import com.curuto.footballdata.services.csvParser.CSVParseWorker
 import com.curuto.footballdata.view.main_activity.MainActivity
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapterModule
-import com.curuto.footballdata.viewModel.ChampionshipViewModel
+import com.curuto.footballdata.view.main_activity.view_model.ChampionshipViewModel
 import dagger.Component
 
 @Component(modules =[

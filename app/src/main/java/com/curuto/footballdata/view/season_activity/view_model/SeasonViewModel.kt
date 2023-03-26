@@ -1,4 +1,4 @@
-package com.curuto.footballdata.viewModel
+package com.curuto.footballdata.view.season_activity.view_model
 
 import android.app.DownloadManager
 import android.content.Context

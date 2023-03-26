@@ -9,10 +9,10 @@ import javax.inject.Inject
 
 @RealmClass
 open class Championship constructor (
-            @PrimaryKey var id: UUID,
-            var name: String,
-            var code: String,
-            var season: RealmList<Season>,
+    @PrimaryKey var id: UUID,
+    var name: String,
+    var code: String,
+    var seasonList: RealmList<Season>,
             //var matches: RealmList<Match>,
 
             ) : RealmObject() {

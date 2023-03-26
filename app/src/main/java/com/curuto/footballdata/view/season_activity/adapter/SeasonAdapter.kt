@@ -5,9 +5,7 @@ import com.curuto.footballdata.databinding.RowItemSeasonBinding
 import com.curuto.footballdata.model.Season
 import com.curuto.footballdata.utils.getInflater
 import com.curuto.footballdata.view.custom.OnRowClicked
-import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapter
-import com.curuto.footballdata.viewModel.ChampionshipViewModel
-import com.curuto.footballdata.viewModel.SeasonViewModel
+import com.curuto.footballdata.view.season_activity.view_model.SeasonViewModel
 import dagger.Module
 import dagger.Provides
 import io.realm.OrderedRealmCollection

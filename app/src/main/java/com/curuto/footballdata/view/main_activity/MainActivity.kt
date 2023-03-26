@@ -15,7 +15,7 @@ import com.curuto.footballdata.view.custom.OnRowClicked
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapter
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapterModule
 import com.curuto.footballdata.view.season_activity.SeasonActivity
-import com.curuto.footballdata.viewModel.ChampionshipViewModel
+import com.curuto.footballdata.view.main_activity.view_model.ChampionshipViewModel
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
@@ -25,16 +25,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     @Inject lateinit var championshipAdapter : ChampionshipAdapter
     @Inject lateinit var championshipViewModel: ChampionshipViewModel
 
-    val permission = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-    val requestCode = 9999
-
     lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         //Deixando de criar componente na application, e criando na activity
         val myComp = DaggerFootballDataApplicationComponent.builder()
@@ -49,7 +45,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         logD("Build sdk: "+ Build.VERSION.SDK_INT)
 
         if (!hasStoragePermission(this)) {
-            requestStoragePermission(this, requestCode)
+            requestStoragePermission(this, STORAGE_PERMISSION_CODE)
         }
 
         binding.acbGrantPermission.setOnClickListener(this)
@@ -74,7 +70,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(p0: View?) {
         when(p0?.id){
             R.id.acb_grant_permission -> {
-                requestStoragePermission(this, requestCode)
+                requestStoragePermission(this, STORAGE_PERMISSION_CODE)
             }
         }
     }

@@ -2,7 +2,7 @@ package com.curuto.footballdata.view.season_activity
 
 import com.curuto.footballdata.repository.realm.RealmModule
 import com.curuto.footballdata.view.season_activity.adapter.SeasonAdapterModule
-import com.curuto.footballdata.viewModel.SeasonViewModel
+import com.curuto.footballdata.view.season_activity.view_model.SeasonViewModel
 import dagger.Component
 
 

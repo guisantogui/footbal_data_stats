@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.curuto.footballdata.databinding.RowItemChampionshipBinding
 import com.curuto.footballdata.model.Championship
 import com.curuto.footballdata.view.custom.OnRowClicked
-import com.curuto.footballdata.viewModel.ChampionshipViewModel
+import com.curuto.footballdata.view.main_activity.view_model.ChampionshipViewModel
 import dagger.Module
 import dagger.Provides
 import io.realm.OrderedRealmCollection

@@ -31,6 +31,6 @@ class ChampionshipRepository @Inject constructor() {
     fun getAllSeasonsByChampionship(championshipId: UUID): RealmList<Season>? {
         val championship = realm.where(Championship::class.java).equalTo("id", championshipId).findFirst();
 
-        return championship?.season;
+        return championship?.seasonList;
     }
 }

@@ -4,8 +4,9 @@ import com.curuto.footballdata.FootballDataApplication
 import com.curuto.footballdata.repository.ChampionshipRepository
 import com.curuto.footballdata.services.csvParser.CSVParseWorker
 import com.curuto.footballdata.services.csvParser.csvModels.CSVModel
-import com.curuto.footballdata.viewModel.ChampionshipViewModel
-import com.curuto.footballdata.viewModel.SeasonViewModel
+import com.curuto.footballdata.view.championship_detail.view_model.ChampionshipDetailViewModel
+import com.curuto.footballdata.view.main_activity.view_model.ChampionshipViewModel
+import com.curuto.footballdata.view.season_activity.view_model.SeasonViewModel
 import dagger.Component
 
 @Component(modules = [RealmModule::class])
@@ -18,4 +19,7 @@ interface RealmComponent {
     fun inject(championshipViewModel: ChampionshipViewModel)
     fun inject(championshipRepository: ChampionshipRepository)
     fun inject(csvModel: CSVModel)
+
+    fun inject(championshipDetailViewModel: ChampionshipDetailViewModel)
+
 }
