@@ -28,9 +28,19 @@ class ChampionshipRepository @Inject constructor() {
         return realm.where(Championship::class.java).findAllAsync()
     }
 
+    fun getChampionshipCode(championshipId: UUID): String {
+        return realm.where(Championship::class.java).equalTo("id", championshipId).findFirst()?.code!!
+    }
+
     fun getAllSeasonsByChampionship(championshipId: UUID): RealmList<Season>? {
         val championship = realm.where(Championship::class.java).equalTo("id", championshipId).findFirst();
 
         return championship?.seasonList;
     }
+
+    /*fun getSingleSeasonByChampionship(championshipCode: String, seasonCode: String){
+        val championship = realm.where(Championship::class.java).equalTo("code", championshipCode)
+            .and().equalTo("seasonList.code", seasonCode).findFirst()
+
+    }*/
 }

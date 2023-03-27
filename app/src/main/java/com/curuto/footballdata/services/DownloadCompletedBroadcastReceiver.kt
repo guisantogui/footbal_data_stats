@@ -7,10 +7,7 @@ import android.content.Intent
 import android.database.Cursor
 import androidx.work.*
 import com.curuto.footballdata.services.csvParser.CSVParseWorker
-import com.curuto.footballdata.utils.DOWNLOAD_ID
-import com.curuto.footballdata.utils.FILE_PATH
-import com.curuto.footballdata.utils.logD
-import com.curuto.footballdata.utils.logE
+import com.curuto.footballdata.utils.*
 import java.io.File
 import javax.inject.Inject
 
@@ -25,14 +22,10 @@ class DownloadCompletedBroadcastReceiver
 
             if(downloadId != -1L){
 
-                val path = getFileLocation(context, downloadId)
-
-                //filePath = "/storage/emulated/0/Download/whatsapp_image_2022-09-22_at_17.12.09.jpeg"
-
-                logD("Nome do aquivo brodacast: $path")
+                val data = getFileData(context, downloadId)
 
                 val workManager = WorkManager.getInstance(context)
-                val params = Data.Builder().putLong(DOWNLOAD_ID, downloadId).putString(FILE_PATH, path).build()
+                val params = Data.Builder().putAll(data).build()
 
                 val csvParserWorker = OneTimeWorkRequestBuilder<CSVParseWorker>()
                     .setInputData(params)
@@ -46,7 +39,7 @@ class DownloadCompletedBroadcastReceiver
         }
     }
 
-    fun getFileLocation(context: Context, id: Long): String{
+    fun getFileData(context: Context, id: Long): Data{
         val manager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
         val q = DownloadManager.Query()
@@ -54,10 +47,15 @@ class DownloadCompletedBroadcastReceiver
         val c: Cursor = manager.query(q)
 
         var path = ""
+        var title = ""
         if (c.moveToFirst()) {
             path = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI))
+            title = c.getString(c.getColumnIndex(DownloadManager.COLUMN_TITLE))
+
         }
 
-        return path;
+        val data = Data.Builder().putString(FILE_PATH, path).putString(FILE_NAME, title).build()
+
+        return data
     }
 }

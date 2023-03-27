@@ -10,18 +10,13 @@ import com.curuto.footballdata.repository.MatchRepository
 import com.curuto.footballdata.repository.TeamRepository
 import com.curuto.footballdata.services.EasyDownloadManager
 import com.curuto.footballdata.services.csvParser.csvModels.*
-import com.curuto.footballdata.utils.DOWNLOAD_ID
-import com.curuto.footballdata.utils.FILE_PATH
-import com.curuto.footballdata.utils.logD
-import com.curuto.footballdata.utils.logE
 import com.opencsv.CSVReader
 import java.io.File
 import java.nio.file.Files
 import javax.inject.Inject
 import android.provider.MediaStore
-
-
-
+import com.curuto.footballdata.repository.SeasonRepository
+import com.curuto.footballdata.utils.*
 
 
 class CSVParseWorker(private val context: Context, workerParameters: WorkerParameters) :
@@ -29,11 +24,17 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
 
     @Inject lateinit var matchRepository: MatchRepository
     @Inject lateinit var teamRepository: TeamRepository
+    @Inject lateinit var seasonRepository: SeasonRepository
 
     override fun doWork(): Result {
 
         val downloadId = inputData.getLong(DOWNLOAD_ID, -1L)
         val rawFilePath = inputData.getString(FILE_PATH)
+        val fileName = inputData.getString(FILE_NAME)
+
+        val championshipData = fileName!!.split("_")
+        val championshipCode = championshipData[0]
+        val championshipSeasonCode = championshipData[1]
 
         val reader = CSVReader(EasyDownloadManager.getFileFromId(context, downloadId))
         val lines = reader.readAll()
@@ -55,6 +56,8 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
                     teamRepository.insertTeam(match.awayTeam!!)
 
                     matchRepository.insertMatch(match)
+
+
                 }
             }
         }

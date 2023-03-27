@@ -57,7 +57,7 @@ class ChampionshipViewModel @Inject constructor() {
             context.registerReceiver(downloadBroadcastReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
             seasons.forEach {
                 EasyDownloadManager.startDowload(context,
-                    basePath.absolutePath + "/" + championship.code+it.code+it.period +".csv",
+                    basePath.absolutePath + "/" + championship.code+"_"+it.code+".csv",
                     it.dataUrl)
             }
             donwloadQueued = true

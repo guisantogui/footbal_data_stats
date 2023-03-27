@@ -160,9 +160,9 @@
     "name": "Campeonato Brasileiro - Série A",
     "seasons": [
       {
-        "season": "",
+        "season": "0000",
         "download_data": "https://www.football-data.co.uk/new/BRA.xlsx",
-        "season_code": ""
+        "season_code": "0000"
       }
     ]
   }

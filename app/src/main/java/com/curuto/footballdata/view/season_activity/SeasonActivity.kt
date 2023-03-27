@@ -21,6 +21,7 @@ class SeasonActivity : AppCompatActivity() {
 
     @Inject lateinit var seasonAdapter: SeasonAdapter
     @Inject lateinit var seasonViewModel: SeasonViewModel
+    lateinit var championshipId: UUID
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +30,7 @@ class SeasonActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val championshipId = UUID.fromString(intent.getStringExtra(EXTRA_ID))
+        championshipId = UUID.fromString(intent.getStringExtra(EXTRA_ID))
 
         val component =
             DaggerSeasonComponent.builder().seasonAdapterModule(
@@ -52,7 +53,7 @@ class SeasonActivity : AppCompatActivity() {
                  val item = seasonAdapter.getItem(index)
 
                  if(item != null){
-                     seasonViewModel.downloadSeasonData(item, this@SeasonActivity)
+                     seasonViewModel.downloadSeasonData(item, this@SeasonActivity, championshipId)
                  }
 
                 showSnackbar(binding.llcChampionshipListRoot, "Clicked DOWNLOAD", Snackbar.LENGTH_SHORT)

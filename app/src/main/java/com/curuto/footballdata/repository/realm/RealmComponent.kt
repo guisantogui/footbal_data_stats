@@ -3,6 +3,7 @@ package com.curuto.footballdata.repository.realm
 import com.curuto.footballdata.FootballDataApplication
 import com.curuto.footballdata.repository.ChampionshipRepository
 import com.curuto.footballdata.repository.MatchRepository
+import com.curuto.footballdata.repository.SeasonRepository
 import com.curuto.footballdata.services.csvParser.CSVParseWorker
 import com.curuto.footballdata.services.csvParser.csvModels.CSVModel
 import com.curuto.footballdata.view.championship_detail.view_model.ChampionshipDetailViewModel
@@ -23,5 +24,6 @@ interface RealmComponent {
 
     fun inject(championshipDetailViewModel: ChampionshipDetailViewModel)
     fun inject(matchRepository: MatchRepository)
+    fun inject(seasonRepository: SeasonRepository)
 
 }

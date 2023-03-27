@@ -32,13 +32,17 @@ class SeasonViewModel @Inject constructor() {
         return seasons
     }
 
-    fun downloadSeasonData(season: Season, context: Context) {
+    fun getChampionshipCode(championshipId: UUID): String {
+        return championshipRepository.getChampionshipCode(championshipId)
+    }
+
+    fun downloadSeasonData(season: Season, context: Context, championshipId: UUID) {
         val basePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
         if (!basePath.exists()) {
             basePath.mkdirs()
         }
 
-        val path = basePath.absolutePath + "/" + season.code+season.period+".csv"
+        val path = basePath.absolutePath + "/" + getChampionshipCode(championshipId)+"_"+season.code+".csv"
 
         EasyDownloadManager.startDowload(context, path, season.dataUrl)
         context.registerReceiver(downloadBroadcastReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
