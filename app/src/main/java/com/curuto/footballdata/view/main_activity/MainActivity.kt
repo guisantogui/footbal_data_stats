@@ -11,6 +11,7 @@ import com.curuto.footballdata.DaggerFootballDataApplicationComponent
 import com.curuto.footballdata.R
 import com.curuto.footballdata.databinding.ActivityMainBinding
 import com.curuto.footballdata.utils.*
+import com.curuto.footballdata.view.championship_detail.ChampionshipDetailActivity
 import com.curuto.footballdata.view.custom.OnRowClicked
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapter
 import com.curuto.footballdata.view.main_activity.adapter.ChampionshipAdapterModule
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             override fun onPositionClicked(index: Int) {
                 val item = championshipAdapter.getItem(index)
 
-                val intent = Intent(this@MainActivity, SeasonActivity::class.java)
+                val intent = Intent(this@MainActivity, ChampionshipDetailActivity::class.java)
                 intent.putExtra(EXTRA_ID, item?.id.toString())
 
                 startActivity(intent)

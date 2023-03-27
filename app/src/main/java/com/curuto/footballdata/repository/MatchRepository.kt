@@ -2,6 +2,7 @@ package com.curuto.footballdata.repository
 
 import com.curuto.footballdata.model.Championship
 import com.curuto.footballdata.model.Match
+import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import io.realm.Realm
 import java.util.*
 import javax.inject.Inject
@@ -10,6 +11,10 @@ class MatchRepository @Inject constructor() {
 
     @Inject
     lateinit var realm: Realm
+
+    init {
+        DaggerRealmComponent.create().inject(this)
+    }
 
     fun insertMatch(match: Match) {
         realm.executeTransaction {

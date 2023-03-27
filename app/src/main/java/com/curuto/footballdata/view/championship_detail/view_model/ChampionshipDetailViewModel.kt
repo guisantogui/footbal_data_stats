@@ -1,5 +1,6 @@
 package com.curuto.footballdata.view.championship_detail.view_model
 
+import com.curuto.footballdata.model.Match
 import com.curuto.footballdata.repository.MatchRepository
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import java.util.*
@@ -19,8 +20,8 @@ class ChampionshipDetailViewModel @Inject constructor() {
         currentChampionshipId = UUID.fromString(id)
     }
 
-    fun getAllMatches(){
-        matchRepository.getAllMatchesByChampionship(currentChampionshipId)
+    fun getAllMatches() : List<Match>? {
+        return matchRepository.getAllMatchesByChampionship(currentChampionshipId)
     }
 
 }
