@@ -14,10 +14,9 @@ class SeasonRepository @Inject constructor()  {
         DaggerRealmComponent.create().inject(this)
     }
 
-
-    fun getSeasonByCode(seasonCode: String) : Season{
-        return realm.where(Season::class.java).equalTo("code", seasonCode).findFirst()!!
+    fun insertOrUpdateSeason(season: Season){
+        realm.executeTransaction {
+            it.insertOrUpdate(season)
+        }
     }
-
-
 }

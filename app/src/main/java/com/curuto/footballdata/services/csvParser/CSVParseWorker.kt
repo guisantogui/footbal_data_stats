@@ -1,21 +1,19 @@
 package com.curuto.footballdata.services.csvParser
 
 import android.content.Context
-import android.net.Uri
-import android.os.Build
-import android.os.Environment
+import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.curuto.footballdata.repository.ChampionshipRepository
 import com.curuto.footballdata.repository.MatchRepository
 import com.curuto.footballdata.repository.TeamRepository
 import com.curuto.footballdata.services.EasyDownloadManager
 import com.curuto.footballdata.services.csvParser.csvModels.*
 import com.opencsv.CSVReader
 import java.io.File
-import java.nio.file.Files
 import javax.inject.Inject
-import android.provider.MediaStore
 import com.curuto.footballdata.repository.SeasonRepository
+import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import com.curuto.footballdata.utils.*
 
 
@@ -24,7 +22,13 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
 
     @Inject lateinit var matchRepository: MatchRepository
     @Inject lateinit var teamRepository: TeamRepository
+    @Inject lateinit var championshipRepository: ChampionshipRepository
     @Inject lateinit var seasonRepository: SeasonRepository
+
+
+    init {
+        DaggerRealmComponent.create().inject(this)
+    }
 
     override fun doWork(): Result {
 
@@ -34,15 +38,22 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
 
         val championshipData = fileName!!.split("_")
         val championshipCode = championshipData[0]
-        val championshipSeasonCode = championshipData[1]
+        val championshipSeasonCode = championshipData[1].substring(0, 4)
 
         val reader = CSVReader(EasyDownloadManager.getFileFromId(context, downloadId))
         val lines = reader.readAll()
 
         val models =
-            listOf(PremierLeague19941995Model(), PremierLeague19962000Model(), PremierLeague20012002Model(),
-                PremierLeague20032018Model(), PremierLeague20192023Model(), OtherLeaguesModel()
+            listOf(
+                PremierLeague19941995Model(),
+                PremierLeague19962000Model(),
+                PremierLeague20012002Model(),
+                PremierLeague20032018Model(),
+                PremierLeague20192023Model(),
+                OtherLeaguesModel()
             )
+
+        val season = championshipRepository.getSeasonByChampionshipCode(championshipCode, championshipSeasonCode)
 
         val columns = lines[0]
 
@@ -52,24 +63,25 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
                     val line = lines[i]
                     val match = model.readLine(line)
 
-                    teamRepository.insertTeam(match.homeTeam!!)
-                    teamRepository.insertTeam(match.awayTeam!!)
+                    teamRepository.insertOrUpdateTeam(match.homeTeam!!)
+                    teamRepository.insertOrUpdateTeam(match.awayTeam!!)
 
                     matchRepository.insertMatch(match)
 
-
+                    season?.matches?.add(match)
                 }
             }
         }
 
+        if(season != null)
+            seasonRepository.insertOrUpdateSeason(season)
+
         reader.close()
-
-
 
         val filePath = rawFilePath?.subSequence(7, rawFilePath.length).toString()
         val file = File(filePath)
 
-        logD("Absolute path delete file "+ file.absolutePath)
+        logD("Absolute path delete file " + file.absolutePath)
 
         if (file.exists()) {
             val deleted = file.delete()
@@ -78,6 +90,8 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
         } else {
             logE("File do not exists")
         }
+
+        
 
         return Result.success()
     }

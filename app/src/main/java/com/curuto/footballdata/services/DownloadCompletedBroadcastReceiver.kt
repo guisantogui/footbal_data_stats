@@ -25,7 +25,7 @@ class DownloadCompletedBroadcastReceiver
                 val data = getFileData(context, downloadId)
 
                 val workManager = WorkManager.getInstance(context)
-                val params = Data.Builder().putAll(data).build()
+                val params = Data.Builder().putLong(DOWNLOAD_ID, downloadId).putAll(data).build()
 
                 val csvParserWorker = OneTimeWorkRequestBuilder<CSVParseWorker>()
                     .setInputData(params)

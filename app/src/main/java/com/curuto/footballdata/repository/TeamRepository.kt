@@ -15,7 +15,7 @@ class TeamRepository @Inject constructor() {
         return team
     }
 
-    fun insertTeam(team: Team){
+    fun insertOrUpdateTeam(team: Team){
         realm.executeTransaction {
             it.insertOrUpdate(team)
         }
