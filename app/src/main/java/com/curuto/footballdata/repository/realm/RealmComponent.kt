@@ -15,15 +15,16 @@ import dagger.Component
 interface RealmComponent {
 
     fun inject(seasonViewModel: SeasonViewModel)
-    fun inject(csvParseWorker: CSVParseWorker)
     fun inject(footballDataApplication: FootballDataApplication)
 
     fun inject(championshipViewModel: ChampionshipViewModel)
     fun inject(championshipRepository: ChampionshipRepository)
-    fun inject(csvModel: CSVModel)
 
     fun inject(championshipDetailViewModel: ChampionshipDetailViewModel)
     fun inject(matchRepository: MatchRepository)
     fun inject(seasonRepository: SeasonRepository)
+
+    fun inject(csvModel: CSVModel)
+    fun inject(csvParseWorker: CSVParseWorker)
 
 }

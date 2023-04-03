@@ -4,8 +4,6 @@ import com.curuto.footballdata.model.Championship
 import com.curuto.footballdata.model.Match
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import io.realm.Realm
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.supervisorScope
 import java.util.*
 import javax.inject.Inject
 

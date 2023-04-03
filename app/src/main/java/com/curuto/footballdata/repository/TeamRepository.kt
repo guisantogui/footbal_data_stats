@@ -1,21 +1,21 @@
 package com.curuto.footballdata.repository
 
 import com.curuto.footballdata.model.Team
+import dagger.Module
+import dagger.Provides
 import io.realm.Case
 import io.realm.Realm
 import javax.inject.Inject
 
 class TeamRepository @Inject constructor() {
 
-    @Inject lateinit var realm: Realm
-
-    fun getTeamByName(name: String): Team? {
+    fun getTeamByName(realm: Realm, name: String): Team? {
         val team = realm.where(Team::class.java).equalTo("name", name, Case.INSENSITIVE).findFirst()
 
         return team
     }
 
-    fun insertOrUpdateTeam(team: Team){
+    fun insertOrUpdateTeam(realm: Realm, team: Team){
         realm.executeTransaction {
             it.insertOrUpdate(team)
         }

@@ -40,11 +40,9 @@ class ChampionshipRepository @Inject constructor() {
 
     fun getSeasonByChampionshipCode(championshipCode: String, championshipSeasonCode: String): Season? {
         val championship = realm.where(Championship::class.java).equalTo("code", championshipCode)
-                    .findFirstAsync().seasonList.first { it.code == championshipSeasonCode }
+                    .findFirst()?.seasonList?.first { it.code == championshipSeasonCode }
 
         return championship
     }
-
-
 
 }

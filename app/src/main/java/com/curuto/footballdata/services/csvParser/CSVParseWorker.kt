@@ -1,7 +1,6 @@
 package com.curuto.footballdata.services.csvParser
 
 import android.content.Context
-import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.curuto.footballdata.repository.ChampionshipRepository
@@ -15,6 +14,7 @@ import javax.inject.Inject
 import com.curuto.footballdata.repository.SeasonRepository
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import com.curuto.footballdata.utils.*
+import io.realm.Realm
 
 
 class CSVParseWorker(private val context: Context, workerParameters: WorkerParameters) :
@@ -24,7 +24,7 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
     @Inject lateinit var teamRepository: TeamRepository
     @Inject lateinit var championshipRepository: ChampionshipRepository
     @Inject lateinit var seasonRepository: SeasonRepository
-
+    @Inject lateinit var realm: Realm
 
     init {
         DaggerRealmComponent.create().inject(this)
@@ -53,7 +53,8 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
                 OtherLeaguesModel()
             )
 
-        val season = championshipRepository.getSeasonByChampionshipCode(championshipCode, championshipSeasonCode)
+        val season = championshipRepository.getSeasonByChampionshipCode(championshipCode,
+                                                championshipSeasonCode)
 
         val columns = lines[0]
 
@@ -61,10 +62,15 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
             if (model.columnModelList.size == columns.size && model.matchDownloadedModel(columns)) {
                 for (i in 1..lines.size) {
                     val line = lines[i]
-                    val match = model.readLine(line)
+                    val match = model.getMatch(line)
+                    val homeTeam = model.getHomeTeam(line)
+                    val awayTeam = model.getAwayTeam(line)
 
-                    teamRepository.insertOrUpdateTeam(match.homeTeam!!)
-                    teamRepository.insertOrUpdateTeam(match.awayTeam!!)
+                    teamRepository.insertOrUpdateTeam(realm, homeTeam)
+                    teamRepository.insertOrUpdateTeam(realm, awayTeam)
+
+                    match.homeTeam = homeTeam
+                    match.awayTeam = awayTeam
 
                     matchRepository.insertMatch(match)
 
@@ -95,4 +101,6 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
 
         return Result.success()
     }
+
+
 }
