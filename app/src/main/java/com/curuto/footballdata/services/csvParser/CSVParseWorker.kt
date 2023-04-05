@@ -24,13 +24,13 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
     @Inject lateinit var teamRepository: TeamRepository
     @Inject lateinit var championshipRepository: ChampionshipRepository
     @Inject lateinit var seasonRepository: SeasonRepository
-    @Inject lateinit var realm: Realm
 
     init {
         DaggerRealmComponent.create().inject(this)
     }
 
     override fun doWork(): Result {
+        val realm: Realm = Realm.getDefaultInstance()
 
         val downloadId = inputData.getLong(DOWNLOAD_ID, -1L)
         val rawFilePath = inputData.getString(FILE_PATH)
@@ -53,7 +53,7 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
                 OtherLeaguesModel()
             )
 
-        val season = championshipRepository.getSeasonByChampionshipCode(championshipCode,
+        val season = championshipRepository.getSeasonByChampionshipCode(realm, championshipCode,
                                                 championshipSeasonCode)
 
         val columns = lines[0]
@@ -63,16 +63,16 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
                 for (i in 1..lines.size) {
                     val line = lines[i]
                     val match = model.getMatch(line)
-                    val homeTeam = model.getHomeTeam(line)
-                    val awayTeam = model.getAwayTeam(line)
+                    val homeTeamName = model.getHomeTeam(line)
+                    val awayTeamName = model.getAwayTeam(line)
 
-                    teamRepository.insertOrUpdateTeam(realm, homeTeam)
-                    teamRepository.insertOrUpdateTeam(realm, awayTeam)
+                    val homeTeam = teamRepository.insertTeam(realm, homeTeamName)
+                    val awayTeam = teamRepository.insertTeam(realm, awayTeamName)
 
                     match.homeTeam = homeTeam
                     match.awayTeam = awayTeam
 
-                    matchRepository.insertMatch(match)
+                    matchRepository.insertMatch(realm, match)
 
                     season?.matches?.add(match)
                 }
@@ -80,9 +80,10 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
         }
 
         if(season != null)
-            seasonRepository.insertOrUpdateSeason(season)
+            seasonRepository.insertOrUpdateSeason(realm, season)
 
         reader.close()
+        realm.close()
 
         val filePath = rawFilePath?.subSequence(7, rawFilePath.length).toString()
         val file = File(filePath)

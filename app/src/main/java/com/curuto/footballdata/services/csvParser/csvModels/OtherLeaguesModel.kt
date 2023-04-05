@@ -47,15 +47,15 @@ class OtherLeaguesModel: CSVModel() {
         return match
     }
 
-    override fun getHomeTeam(array: Array<String>): Team {
+    override fun getHomeTeam(array: Array<String>): String {
         val homeTeamIndex = array.indexOf("Home")
 
-        return Team(UUID.randomUUID(), array[homeTeamIndex])
+        return array[homeTeamIndex]
     }
 
-    override fun getAwayTeam(array: Array<String>): Team {
+    override fun getAwayTeam(array: Array<String>): String {
         val homeTeamIndex = array.indexOf("Away")
 
-        return Team(UUID.randomUUID(), array[homeTeamIndex])
+        return array[homeTeamIndex]
     }
 }

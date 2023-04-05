@@ -12,6 +12,7 @@ import com.curuto.footballdata.repository.ChampionshipRepository
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import com.curuto.footballdata.services.DownloadCompletedBroadcastReceiver
 import com.curuto.footballdata.services.EasyDownloadManager
+import io.realm.Realm
 import io.realm.RealmList
 import java.util.*
 
@@ -20,6 +21,7 @@ class ChampionshipViewModel @Inject constructor() {
 
     @Inject lateinit var downloadBroadcastReceiver : DownloadCompletedBroadcastReceiver
     @Inject lateinit var repository: ChampionshipRepository
+    @Inject lateinit var realm: Realm
 
     init {
         val realmComponent = DaggerRealmComponent.create()
@@ -27,11 +29,11 @@ class ChampionshipViewModel @Inject constructor() {
     }
 
     fun getAllChampionships(): RealmResults<Championship> {
-        return repository.getAllChampionships()
+        return repository.getAllChampionships(realm)
     }
 
     private fun getAllSeasonsByChampionship(champioshipId: UUID): RealmList<Season>? {
-        val seasons = repository.getAllSeasonsByChampionship(champioshipId)
+        val seasons = repository.getAllSeasonsByChampionship(realm, champioshipId)
 
         return seasons
     }

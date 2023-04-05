@@ -3,6 +3,7 @@ package com.curuto.footballdata.view.championship_detail.view_model
 import com.curuto.footballdata.model.Match
 import com.curuto.footballdata.repository.MatchRepository
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
+import io.realm.Realm
 import java.util.*
 import javax.inject.Inject
 
@@ -10,7 +11,9 @@ import javax.inject.Inject
 class ChampionshipDetailViewModel @Inject constructor() {
 
     @Inject lateinit var matchRepository: MatchRepository
+    @Inject lateinit var realm: Realm
     lateinit var currentChampionshipId: UUID
+
 
     init {
         DaggerRealmComponent.create().inject(this)
@@ -21,7 +24,7 @@ class ChampionshipDetailViewModel @Inject constructor() {
     }
 
     fun getAllMatches() : List<Match>? {
-        return matchRepository.getAllMatchesByChampionship(currentChampionshipId)
+        return matchRepository.getAllMatchesByChampionship(realm, currentChampionshipId)
     }
 
 }

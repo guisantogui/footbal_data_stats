@@ -36,6 +36,6 @@ abstract class CSVModel {
 
 
     abstract fun getMatch(array: Array<String>): Match
-    abstract fun getHomeTeam(array: Array<String>): Team
-    abstract fun getAwayTeam(array: Array<String>): Team
+    abstract fun getHomeTeam(array: Array<String>): String
+    abstract fun getAwayTeam(array: Array<String>): String
 }

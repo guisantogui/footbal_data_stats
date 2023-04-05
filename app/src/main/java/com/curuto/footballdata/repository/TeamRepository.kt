@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import io.realm.Case
 import io.realm.Realm
+import java.util.*
 import javax.inject.Inject
 
 class TeamRepository @Inject constructor() {
@@ -15,9 +16,12 @@ class TeamRepository @Inject constructor() {
         return team
     }
 
-    fun insertOrUpdateTeam(realm: Realm, team: Team){
+    fun insertTeam(realm: Realm, teamName: String): Team {
+        val team = Team(UUID.randomUUID(), teamName)
         realm.executeTransaction {
-            it.insertOrUpdate(team)
+            it.insert(team)
         }
+
+        return team
     }
 }

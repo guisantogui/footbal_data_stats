@@ -7,14 +7,7 @@ import javax.inject.Inject
 
 class SeasonRepository @Inject constructor()  {
 
-    @Inject
-    lateinit var realm: Realm
-
-    init {
-        DaggerRealmComponent.create().inject(this)
-    }
-
-    fun insertOrUpdateSeason(season: Season){
+    fun insertOrUpdateSeason(realm: Realm, season: Season){
         realm.executeTransaction {
             it.insertOrUpdate(season)
         }
