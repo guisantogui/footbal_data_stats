@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         binding.acbGrantPermission.setOnClickListener(this)
+
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

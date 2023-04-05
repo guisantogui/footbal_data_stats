@@ -31,7 +31,7 @@ class ChampionshipDetailActivity : AppCompatActivity() {
         super.onResume()
 
         val allMatches = championshipDetailViewModel.getAllMatches()
-        if (allMatches != null) {
+        if (allMatches != null && allMatches.isNotEmpty()) {
 
             val totalMatches = allMatches.size
             binding.tvTotalMatches.text = totalMatches.toString()

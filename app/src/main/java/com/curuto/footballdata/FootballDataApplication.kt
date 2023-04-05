@@ -77,7 +77,6 @@ class FootballDataApplication : Application() {
                 Realm.getDefaultInstance().executeTransactionAsync {
                     it.insertOrUpdate(championship)
                 }
-
             }
         }
     }

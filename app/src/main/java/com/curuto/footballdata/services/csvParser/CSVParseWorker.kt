@@ -74,6 +74,7 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
 
                     matchRepository.insertMatch(realm, match)
 
+                    //matches está nula
                     season?.matches?.add(match)
                 }
             }
