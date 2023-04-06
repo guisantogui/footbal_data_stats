@@ -15,7 +15,9 @@ open class Season(@PrimaryKey var id: UUID,
                 var matches: RealmList<Match>,) : RealmObject() {
 
     @Inject
-    constructor(): this(UUID.randomUUID(),"","", "", RealmList(),){}
+    constructor(): this(UUID.randomUUID(),"","", "", RealmList(),){
+        matches.addAll(RealmList())
+    }
 
 
 }

@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             override fun onPositionClicked(index: Int) {
                 val item = championshipAdapter.getItem(index)
 
-                val intent = Intent(this@MainActivity, SeasonActivity::class.java)
+                val intent = Intent(this@MainActivity, ChampionshipDetailActivity::class.java)
                 intent.putExtra(EXTRA_ID, item?.id.toString())
 
                 startActivity(intent)

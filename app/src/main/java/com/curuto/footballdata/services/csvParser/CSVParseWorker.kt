@@ -3,6 +3,7 @@ package com.curuto.footballdata.services.csvParser
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.curuto.footballdata.model.Match
 import com.curuto.footballdata.repository.ChampionshipRepository
 import com.curuto.footballdata.repository.MatchRepository
 import com.curuto.footballdata.repository.TeamRepository
@@ -15,15 +16,20 @@ import com.curuto.footballdata.repository.SeasonRepository
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import com.curuto.footballdata.utils.*
 import io.realm.Realm
+import io.realm.RealmList
 
 
 class CSVParseWorker(private val context: Context, workerParameters: WorkerParameters) :
     Worker(context, workerParameters) {
 
-    @Inject lateinit var matchRepository: MatchRepository
-    @Inject lateinit var teamRepository: TeamRepository
-    @Inject lateinit var championshipRepository: ChampionshipRepository
-    @Inject lateinit var seasonRepository: SeasonRepository
+    @Inject
+    lateinit var matchRepository: MatchRepository
+    @Inject
+    lateinit var teamRepository: TeamRepository
+    @Inject
+    lateinit var championshipRepository: ChampionshipRepository
+    @Inject
+    lateinit var seasonRepository: SeasonRepository
 
     init {
         DaggerRealmComponent.create().inject(this)
@@ -53,14 +59,18 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
                 OtherLeaguesModel()
             )
 
-        val season = championshipRepository.getSeasonByChampionshipCode(realm, championshipCode,
-                                                championshipSeasonCode)
+        val season = championshipRepository.getSeasonByChampionshipCode(
+            realm, championshipCode,
+            championshipSeasonCode
+        )
+
 
         val columns = lines[0]
+        val matchList = ArrayList<Match>()
 
         for (model in models) {
             if (model.columnModelList.size == columns.size && model.matchDownloadedModel(columns)) {
-                for (i in 1..lines.size) {
+                for (i in 1 until lines.size) {
                     val line = lines[i]
                     val match = model.getMatch(line)
                     val homeTeamName = model.getHomeTeam(line)
@@ -73,15 +83,15 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
                     match.awayTeam = awayTeam
 
                     matchRepository.insertMatch(realm, match)
+                    matchList.add(match)
 
-                    //matches está nula
-                    season?.matches?.add(match)
                 }
             }
         }
 
-        if(season != null)
-            seasonRepository.insertOrUpdateSeason(realm, season)
+        if (season != null) {
+            seasonRepository.updateMatches(realm, season, matchList)
+        }
 
         reader.close()
         realm.close()
@@ -99,7 +109,7 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
             logE("File do not exists")
         }
 
-        
+
 
         return Result.success()
     }

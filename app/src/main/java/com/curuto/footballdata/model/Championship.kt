@@ -18,6 +18,8 @@ open class Championship constructor (
             ) : RealmObject() {
 
     @Inject
-    constructor(): this(UUID.randomUUID(),"","", RealmList(),)
+    constructor(): this(UUID.randomUUID(),"","", RealmList()){
+        seasonList.addAll(RealmList())
+    }
 
 }

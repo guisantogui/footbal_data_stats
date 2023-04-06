@@ -1,5 +1,6 @@
 package com.curuto.footballdata.repository
 
+import com.curuto.footballdata.model.Match
 import com.curuto.footballdata.model.Season
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import io.realm.Realm
@@ -11,6 +12,14 @@ class SeasonRepository @Inject constructor()  {
         realm.executeTransaction {
             it.insertOrUpdate(season)
         }
+    }
+
+    fun updateMatches(realm: Realm, season: Season, matches: List<Match>){
+        realm.executeTransaction {
+            season.matches.addAll(matches)
+            it.insertOrUpdate(season)
+        }
+
     }
 
 }
