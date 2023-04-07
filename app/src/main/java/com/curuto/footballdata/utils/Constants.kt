@@ -3,7 +3,7 @@ package com.curuto.footballdata.utils
 //SharedPreferences TAGS
 
 const val FIRST_RUN = "FIRST_RUN";
-
+const val FIRST_RUN_VALUE = "1";
 
 
 

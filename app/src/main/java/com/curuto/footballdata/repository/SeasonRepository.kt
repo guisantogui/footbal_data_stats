@@ -14,12 +14,11 @@ class SeasonRepository @Inject constructor()  {
         }
     }
 
-    fun updateMatches(realm: Realm, season: Season, matches: List<Match>){
+    fun attachMatchesToSeason(realm: Realm, season: Season, matches: List<Match>){
         realm.executeTransaction {
             season.matches.addAll(matches)
             it.insertOrUpdate(season)
         }
-
     }
 
 }

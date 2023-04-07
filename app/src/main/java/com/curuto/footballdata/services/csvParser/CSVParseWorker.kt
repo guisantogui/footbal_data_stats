@@ -16,7 +16,6 @@ import com.curuto.footballdata.repository.SeasonRepository
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import com.curuto.footballdata.utils.*
 import io.realm.Realm
-import io.realm.RealmList
 
 
 class CSVParseWorker(private val context: Context, workerParameters: WorkerParameters) :
@@ -90,7 +89,7 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
         }
 
         if (season != null) {
-            seasonRepository.updateMatches(realm, season, matchList)
+            seasonRepository.attachMatchesToSeason(realm, season, matchList)
         }
 
         reader.close()

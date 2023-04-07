@@ -4,10 +4,7 @@ import android.app.Application
 import com.curuto.footballdata.model.Championship
 import com.curuto.footballdata.model.Match
 import com.curuto.footballdata.model.Season
-import com.curuto.footballdata.utils.FIRST_RUN
-import com.curuto.footballdata.utils.getStringSharedPreferences
-import com.curuto.footballdata.utils.logD
-import com.curuto.footballdata.utils.updateSharedPreferences
+import com.curuto.footballdata.utils.*
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmList
@@ -30,10 +27,10 @@ class FootballDataApplication : Application() {
         Realm.setDefaultConfiguration(config)
 
 
-        val isFirstRun = getStringSharedPreferences(this, FIRST_RUN) != "1"
+        val isFirstRun = getStringSharedPreferences(this, FIRST_RUN) != FIRST_RUN_VALUE
         if (isFirstRun) {
             initDatabase()
-            updateSharedPreferences(this, FIRST_RUN, "1")
+            updateSharedPreferences(this, FIRST_RUN, FIRST_RUN_VALUE)
 
             logD("DATABASE INITIALIZED")
         }

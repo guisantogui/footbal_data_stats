@@ -12,10 +12,7 @@ open class Championship constructor (
     @PrimaryKey var id: UUID,
     var name: String,
     var code: String,
-    var seasonList: RealmList<Season>,
-            //var matches: RealmList<Match>,
-
-            ) : RealmObject() {
+    var seasonList: RealmList<Season>,) : RealmObject() {
 
     @Inject
     constructor(): this(UUID.randomUUID(),"","", RealmList()){
