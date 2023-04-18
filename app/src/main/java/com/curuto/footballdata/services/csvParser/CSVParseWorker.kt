@@ -81,6 +81,25 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
                     match.homeTeam = homeTeam
                     match.awayTeam = awayTeam
 
+                    val lastMatchHomeTeam = matchList.findLast { it.homeTeam?.name == homeTeamName }
+                    val lastMatchAwayTeam = matchList.findLast { it.awayTeam?.name == awayTeamName }
+
+                    if(lastMatchHomeTeam != null && lastMatchAwayTeam != null){
+                        when(match.result){
+                            "H" -> {
+                                lastMatchHomeTeam.homeTeamPointsAmount += 3
+                            }
+                            "A" -> {
+                                lastMatchAwayTeam.awayTeamPointsAmount += 3
+                            }
+                            "D" -> {
+                                lastMatchHomeTeam.homeTeamPointsAmount += 1
+                                lastMatchAwayTeam.awayTeamPointsAmount += 1
+                            }
+                        }
+                    }
+
+
                     matchRepository.insertMatch(realm, match)
                     matchList.add(match)
 

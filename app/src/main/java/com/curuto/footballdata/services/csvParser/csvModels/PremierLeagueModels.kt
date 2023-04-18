@@ -15,8 +15,6 @@ class PremierLeague20192023Model : CSVModel() {
         val divIndex = columnModelList.indexOf("Div")
         val dateIndex = columnModelList.indexOf("Date")
         val timeIndex = columnModelList.indexOf("Time")
-        //val homeTeamIndex = columnModelList.indexOf("HomeTeam")
-        //val awayTeamIndex = columnModelList.indexOf("AwayTeam")
         val fthgIndex = columnModelList.indexOf("FTHG")
         val ftagIndex = columnModelList.indexOf("FTAG")
         val ftrIndex = columnModelList.indexOf("FTR")
@@ -29,7 +27,8 @@ class PremierLeague20192023Model : CSVModel() {
         val fthg = Integer.parseInt(array[fthgIndex].trim())
         val ftag = Integer.parseInt(array[ftagIndex].trim())
 
-        val match = Match(UUID.randomUUID(), null, null, date.toDate(), ftr, fthg, ftag)
+        val match = Match(UUID.randomUUID(), null, null, date.toDate(), ftr, fthg,
+                            ftag, 0, 0, 0)
 
         return match
     }
@@ -54,14 +53,9 @@ class PremierLeague20032018Model : CSVModel() {
     override fun getMatch(array: Array<String>): Match {
         val divIndex = array.indexOf("Div")
         val dateIndex = array.indexOf("Date")
-        val homeTeamIndex = array.indexOf("HomeTeam")
-        val awayTeamIndex = array.indexOf("AwayTeam")
         val fthgIndex = array.indexOf("FTHG")
         val ftagIndex = array.indexOf("FTAG")
         val ftrIndex = array.indexOf("FTR")
-
-        //val homeTeam = getTeam(array[homeTeamIndex])
-        //val awayTeam = getTeam(array[awayTeamIndex])
 
         val date = DateTime.parse(array[dateIndex].trim())
         val ftr = array[ftrIndex].trim()
@@ -69,7 +63,8 @@ class PremierLeague20032018Model : CSVModel() {
         val fthg = Integer.parseInt(array[fthgIndex].trim())
         val ftag = Integer.parseInt(array[ftagIndex].trim())
 
-        val match = Match(UUID.randomUUID(), null, null, date.toDate(), ftr, fthg, ftag)
+        val match = Match(UUID.randomUUID(), null, null, date.toDate(), ftr, fthg,
+                        ftag, 0, 0, 0)
 
         return match
     }
@@ -96,14 +91,10 @@ class PremierLeague20012002Model : CSVModel() {
     override fun getMatch(array: Array<String>): Match {
 
         val dateIndex = array.indexOf("Date")
-        val homeTeamIndex = array.indexOf("HomeTeam")
-        val awayTeamIndex = array.indexOf("AwayTeam")
         val fthgIndex = array.indexOf("FTHG")
         val ftagIndex = array.indexOf("FTAG")
         val ftrIndex = array.indexOf("FTR")
 
-        //val homeTeam = getTeam(array[homeTeamIndex])
-        //val awayTeam = getTeam(array[awayTeamIndex])
 
         val date = DateTime.parse(array[dateIndex].trim())
         val ftr = array[ftrIndex].trim()
@@ -111,7 +102,8 @@ class PremierLeague20012002Model : CSVModel() {
         val fthg = Integer.parseInt(array[fthgIndex].trim())
         val ftag = Integer.parseInt(array[ftagIndex].trim())
 
-        val match = Match(UUID.randomUUID(), null, null, date.toDate(), ftr, fthg, ftag)
+        val match = Match(UUID.randomUUID(), null, null, date.toDate(), ftr, fthg,
+                        ftag, 0, 0, 0)
 
         return match
     }
@@ -135,14 +127,9 @@ class PremierLeague19962000Model : CSVModel() {
 
     override fun getMatch(array: Array<String>): Match {
         val dateIndex = array.indexOf("Date")
-        val homeTeamIndex = array.indexOf("HomeTeam")
-        val awayTeamIndex = array.indexOf("AwayTeam")
         val fthgIndex = array.indexOf("FTHG")
         val ftagIndex = array.indexOf("FTAG")
         val ftrIndex = array.indexOf("FTR")
-
-        //val homeTeam = getTeam(array[homeTeamIndex])
-        //val awayTeam = getTeam(array[awayTeamIndex])
 
         val date = DateTime.parse(array[dateIndex].trim())
         val ftr = array[ftrIndex].trim()
@@ -150,7 +137,8 @@ class PremierLeague19962000Model : CSVModel() {
         val fthg = Integer.parseInt(array[fthgIndex].trim())
         val ftag = Integer.parseInt(array[ftagIndex].trim())
 
-        val match = Match(UUID.randomUUID(), null, null, date.toDate(), ftr, fthg, ftag)
+        val match = Match(UUID.randomUUID(), null, null, date.toDate(), ftr, fthg,
+                        ftag, 0, 0, 0)
 
         return match
     }
@@ -174,14 +162,9 @@ class PremierLeague19941995Model : CSVModel() {
 
     override fun getMatch(array: Array<String>): Match {
         val dateIndex = array.indexOf("Date")
-        val homeTeamIndex = array.indexOf("HomeTeam")
-        val awayTeamIndex = array.indexOf("AwayTeam")
         val fthgIndex = array.indexOf("FTHG")
         val ftagIndex = array.indexOf("FTAG")
         val ftrIndex = array.indexOf("FTR")
-
-        //val homeTeam = getTeam(array[homeTeamIndex])
-        //val awayTeam = getTeam(array[awayTeamIndex])
 
         val date = DateTime.parse(array[dateIndex].trim())
         val ftr = array[ftrIndex].trim()
@@ -189,7 +172,8 @@ class PremierLeague19941995Model : CSVModel() {
         val fthg = Integer.parseInt(array[fthgIndex].trim())
         val ftag = Integer.parseInt(array[ftagIndex].trim())
 
-        val match = Match(UUID.randomUUID(), null, null, date.toDate(), ftr, fthg, ftag)
+        val match = Match(UUID.randomUUID(), null, null, date.toDate(), ftr, fthg,
+                    ftag, 0, 0, 0)
 
         return match
     }

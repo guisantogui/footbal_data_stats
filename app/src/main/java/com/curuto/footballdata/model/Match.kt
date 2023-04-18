@@ -17,11 +17,15 @@ open class Match(
         var result: String, // "A", "H", "D"
         var homeTeamGoals: Int,
         var awayTeamGoals: Int,
+        var round: Int,
+        var homeTeamPointsAmount: Int,
+        var awayTeamPointsAmount: Int,
 
         ): RealmObject() {
 
         @Inject
-        constructor(): this(UUID.randomUUID(), null,null, Date(), "", 0,0)
+        constructor(): this(UUID.randomUUID(), null,null, Date(), "",
+                0,0,0,0,0)
 }
 
 
