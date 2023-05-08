@@ -22,7 +22,6 @@ class ChampionshipDetailActivity : AppCompatActivity() {
 
         DaggerChampionshipDetailComponent.create().inject(this)
 
-
         val championshipId = intent.getStringExtra(EXTRA_ID)
         championshipDetailViewModel.setCurrentChampionshipId(championshipId!!)
     }

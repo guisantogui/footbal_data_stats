@@ -45,8 +45,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         logD("Build sdk: "+ Build.VERSION.SDK_INT)
 
-        if (!hasStoragePermission(this)) {
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && !hasStoragePermission(this)) {
             requestStoragePermission(this, STORAGE_PERMISSION_CODE)
+        }
+        else{
+            binding.rvChampionshipList.show()
+            binding.ivBgWarningIcon.hardHide()
+            binding.acbGrantPermission.hardHide()
+            binding.tvWarningMessage.hardHide()
         }
 
         binding.acbGrantPermission.setOnClickListener(this)

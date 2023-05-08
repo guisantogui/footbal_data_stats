@@ -42,7 +42,7 @@ class OtherLeaguesModel: CSVModel() {
         val hg = Integer.parseInt(array[hgIndex].trim())
         val ag = Integer.parseInt(array[agIndex].trim())
 
-        val match = Match(UUID.randomUUID(), null, null, date.toDate(), res, hg, ag)
+        val match = Match(UUID.randomUUID(), null, null, date.toDate(), res, hg, ag, 0,0,0)
 
         return match
     }
