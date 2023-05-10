@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import io.realm.Case
 import io.realm.Realm
+import io.realm.RealmResults
 import java.util.*
 import javax.inject.Inject
 
@@ -23,5 +24,10 @@ class TeamRepository @Inject constructor() {
         }
 
         return team
+    }
+
+    fun getAllTeamsByChampionship(realm: Realm, currentChampionshipId: UUID): RealmResults<Team> {
+        val teams = realm.where(Team::class.java).findAll()
+        return teams
     }
 }

@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && !hasStoragePermission(this)) {
             requestStoragePermission(this, STORAGE_PERMISSION_CODE)
         }
-        else{
+        else {
             binding.rvChampionshipList.show()
             binding.ivBgWarningIcon.hardHide()
             binding.acbGrantPermission.hardHide()
