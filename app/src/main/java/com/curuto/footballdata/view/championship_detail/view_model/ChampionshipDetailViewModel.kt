@@ -31,8 +31,8 @@ class ChampionshipDetailViewModel @Inject constructor() {
         return matchRepository.getAllMatchesByChampionship(realm, currentChampionshipId)
     }
 
-    fun getAllTeams(): RealmResults<Team> {
-        return teamRepository.getAllTeamsByChampionship(realm, currentChampionshipId)
+    fun getAllTeams(championshipId: UUID): RealmResults<Team> {
+        return teamRepository.getAllTeamsByChampionship(realm, championshipId)
     }
 
 }

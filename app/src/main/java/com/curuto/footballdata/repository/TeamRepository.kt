@@ -1,5 +1,6 @@
 package com.curuto.footballdata.repository
 
+import com.curuto.footballdata.model.Championship
 import com.curuto.footballdata.model.Team
 import dagger.Module
 import dagger.Provides
@@ -29,5 +30,16 @@ class TeamRepository @Inject constructor() {
     fun getAllTeamsByChampionship(realm: Realm, currentChampionshipId: UUID): RealmResults<Team> {
         val teams = realm.where(Team::class.java).findAll()
         return teams
+    }
+
+    fun getAllTeamsByChampionshipCode(realm: Realm, championshipCode: UUID): List<Team>{
+        val champ = realm.where(Championship::class.java)
+            .equalTo("code", championshipCode).findFirst()
+
+        val teams = champ?.seasonList?.flatMap { it.matches }?.map { it.homeTeam!! }!!
+
+        return teams
+
+
     }
 }

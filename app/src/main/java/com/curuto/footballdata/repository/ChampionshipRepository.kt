@@ -2,6 +2,7 @@ package com.curuto.footballdata.repository
 
 import com.curuto.footballdata.model.Championship
 import com.curuto.footballdata.model.Season
+import com.curuto.footballdata.model.Team
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import io.realm.Realm
 import io.realm.RealmList
@@ -37,6 +38,17 @@ class ChampionshipRepository @Inject constructor() {
                     .findFirst()?.seasonList?.first { it.code == championshipSeasonCode }
 
         return championship
+    }
+
+    fun getTeamsByChampionshipCode(realm: Realm, championshipCode: String): List<Team>{
+        val champ = realm.where(Championship::class.java)
+                    .equalTo("code", championshipCode).findFirst()
+
+        val teams = champ?.seasonList?.flatMap { it.matches }?.map { it.homeTeam!! }!!
+
+        return teams
+
+
     }
 
 }

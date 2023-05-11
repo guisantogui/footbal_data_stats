@@ -6,8 +6,10 @@ import com.curuto.footballdata.databinding.RowItemTeamBinding
 import com.curuto.footballdata.model.Team
 import com.curuto.footballdata.view.championship_detail.view_model.ChampionshipDetailViewModel
 import dagger.Module
+import dagger.Provides
 import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter
+import java.util.*
 import javax.inject.Inject
 
 open class TeamListAdapter
@@ -26,11 +28,12 @@ open class TeamListAdapter
 }
 
 @Module
-open class TeamListModule(){
+open class TeamListModule(private val championshipId: UUID){
 
+    @Provides
     fun getTeamListAdapter(): TeamListAdapter{
         val viewModel = ChampionshipDetailViewModel()
 
-        return TeamListAdapter(viewModel.getAllTeams())
+        return TeamListAdapter(viewModel.getAllTeams(championshipId))
     }
 }
