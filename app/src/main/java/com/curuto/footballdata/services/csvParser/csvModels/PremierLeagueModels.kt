@@ -36,13 +36,13 @@ class PremierLeague20192023Model : CSVModel() {
     override fun getHomeTeam(array: Array<String>): String {
         val homeTeamIndex = columnModelList.indexOf("HomeTeam")
 
-        return array[homeTeamIndex]
+        return array[homeTeamIndex].trim()
     }
 
     override fun getAwayTeam(array: Array<String>): String {
         val awayTeamIndex = columnModelList.indexOf("AwayTeam")
 
-        return array[awayTeamIndex]
+        return array[awayTeamIndex].trim()
     }
 }
 
@@ -72,13 +72,13 @@ class PremierLeague20032018Model : CSVModel() {
     override fun getHomeTeam(array: Array<String>): String {
         val homeTeamIndex = array.indexOf("HomeTeam")
 
-        return array[homeTeamIndex]
+        return array[homeTeamIndex].trim()
     }
 
     override fun getAwayTeam(array: Array<String>): String {
         val awayTeamIndex = array.indexOf("AwayTeam")
 
-        return array[awayTeamIndex]
+        return array[awayTeamIndex].trim()
     }
 
 }
@@ -111,13 +111,13 @@ class PremierLeague20012002Model : CSVModel() {
     override fun getHomeTeam(array: Array<String>): String {
         val homeTeamIndex = array.indexOf("HomeTeam")
 
-        return array[homeTeamIndex]
+        return array[homeTeamIndex].trim()
     }
 
     override fun getAwayTeam(array: Array<String>): String {
         val awayTeamIndex = array.indexOf("AwayTeam")
 
-        return array[awayTeamIndex]
+        return array[awayTeamIndex].trim()
     }
 }
 
@@ -146,13 +146,13 @@ class PremierLeague19962000Model : CSVModel() {
     override fun getHomeTeam(array: Array<String>): String {
         val homeTeamIndex = array.indexOf("HomeTeam")
 
-        return array[homeTeamIndex]
+        return array[homeTeamIndex].trim()
     }
 
     override fun getAwayTeam(array: Array<String>): String {
         val awayTeamIndex = array.indexOf("AwayTeam")
 
-        return array[awayTeamIndex]
+        return array[awayTeamIndex].trim()
     }
 }
 
@@ -181,12 +181,12 @@ class PremierLeague19941995Model : CSVModel() {
     override fun getHomeTeam(array: Array<String>): String {
         val homeTeamIndex = array.indexOf("HomeTeam")
 
-        return array[homeTeamIndex]
+        return array[homeTeamIndex].trim()
     }
 
     override fun getAwayTeam(array: Array<String>): String {
         val awayTeamIndex = array.indexOf("AwayTeam")
 
-        return array[awayTeamIndex]
+        return array[awayTeamIndex].trim()
     }
 }

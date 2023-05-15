@@ -72,11 +72,18 @@ class CSVParseWorker(private val context: Context, workerParameters: WorkerParam
                 for (i in 1 until lines.size) {
                     val line = lines[i]
                     val match = model.getMatch(line)
-                    val homeTeamName = model.getHomeTeam(line)
-                    val awayTeamName = model.getAwayTeam(line)
+                    val homeTeamName = model.getHomeTeam(line).trim()
+                    val awayTeamName = model.getAwayTeam(line).trim()
 
-                    val homeTeam = teamRepository.insertTeam(realm, homeTeamName)
-                    val awayTeam = teamRepository.insertTeam(realm, awayTeamName)
+                    var homeTeam = teamRepository.getTeamByName(realm, homeTeamName)
+                    if(homeTeam == null){
+                        homeTeam = teamRepository.insertTeam(realm, homeTeamName)
+                    }
+
+                    var awayTeam = teamRepository.getTeamByName(realm, homeTeamName)
+                    if(awayTeam == null){
+                        awayTeam = teamRepository.insertTeam(realm, awayTeamName)
+                    }
 
                     match.homeTeam = homeTeam
                     match.awayTeam = awayTeam
