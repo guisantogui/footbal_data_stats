@@ -37,7 +37,6 @@ class ChampionshipDetailActivity : AppCompatActivity() {
         binding.rvTeamList.adapter = teamListAdapter
         binding.rvTeamList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-
     }
 
     override fun onResume() {
@@ -53,6 +52,7 @@ class ChampionshipDetailActivity : AppCompatActivity() {
             val avgGoals = allGoals / totalMatches
 
             binding.tvAverageGoals.text = avgGoals.toString()
+            binding.tvTotalGoals.text = allGoals.toString()
 
         }
     }
