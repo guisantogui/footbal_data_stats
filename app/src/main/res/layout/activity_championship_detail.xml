@@ -84,6 +84,11 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pc_home_wins_draws_away_wins"
+        android:layout_width="match_parent"
+        android:layout_height="250dp" />
+
     <!-- Botão -->
 
     <androidx.appcompat.widget.AppCompatButton

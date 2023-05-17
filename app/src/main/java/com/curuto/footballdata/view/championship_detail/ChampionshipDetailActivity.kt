@@ -1,5 +1,6 @@
 package com.curuto.footballdata.view.championship_detail
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,8 +12,16 @@ import com.curuto.footballdata.utils.logD
 import com.curuto.footballdata.view.championship_detail.adapter.TeamListAdapter
 import com.curuto.footballdata.view.championship_detail.adapter.TeamListModule
 import com.curuto.footballdata.view.championship_detail.view_model.ChampionshipDetailViewModel
+import com.github.mikephil.charting.data.PieEntry
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
+import com.github.mikephil.charting.formatter.PercentFormatter
+
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.utils.ColorTemplate
+
 
 class ChampionshipDetailActivity : AppCompatActivity() {
 
@@ -37,6 +46,29 @@ class ChampionshipDetailActivity : AppCompatActivity() {
         binding.rvTeamList.adapter = teamListAdapter
         binding.rvTeamList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+
+
+        binding.pcHomeWinsDrawsAwayWins.setUsePercentValues(true);
+        binding.pcHomeWinsDrawsAwayWins.description.isEnabled = false;
+        binding.pcHomeWinsDrawsAwayWins.setExtraOffsets(5f, 10f, 5f, 5f);
+
+        binding.pcHomeWinsDrawsAwayWins.dragDecelerationFrictionCoef = 0.95f;
+
+        binding.pcHomeWinsDrawsAwayWins.isDrawHoleEnabled = true;
+        binding.pcHomeWinsDrawsAwayWins.setHoleColor(Color.WHITE);
+
+        binding.pcHomeWinsDrawsAwayWins.setTransparentCircleColor(Color.WHITE);
+        binding.pcHomeWinsDrawsAwayWins.setTransparentCircleAlpha(110);
+
+        binding.pcHomeWinsDrawsAwayWins.holeRadius = 58f;
+        binding.pcHomeWinsDrawsAwayWins.transparentCircleRadius = 61f;
+
+        binding.pcHomeWinsDrawsAwayWins.setDrawCenterText(true);
+
+        binding.pcHomeWinsDrawsAwayWins.rotationAngle = 0f;
+
+        binding.pcHomeWinsDrawsAwayWins.isRotationEnabled = true;
+        binding.pcHomeWinsDrawsAwayWins.isHighlightPerTapEnabled = true;
     }
 
     override fun onResume() {
@@ -46,14 +78,32 @@ class ChampionshipDetailActivity : AppCompatActivity() {
         if (allMatches != null && allMatches.isNotEmpty()) {
 
             val totalMatches = allMatches.size
-            binding.tvTotalMatches.text = totalMatches.toString()
-
             val allGoals = allMatches.sumOf { it.awayTeamGoals + it.homeTeamGoals }
             val avgGoals = allGoals / totalMatches
 
+            binding.tvTotalMatches.text = totalMatches.toString()
             binding.tvAverageGoals.text = avgGoals.toString()
             binding.tvTotalGoals.text = allGoals.toString()
-
         }
+
+        val a = PieEntry(30f)
+        val b = PieEntry(70f)
+        var entries = ArrayList<PieEntry>(2)
+
+        entries.add(a)
+        entries.add(b)
+
+
+        val dataSet = PieDataSet(entries, "Vitórias E derrotas")
+
+        dataSet.colors = ColorTemplate.COLORFUL_COLORS.toMutableList()
+
+        val data = PieData(dataSet)
+        data.setValueFormatter(PercentFormatter())
+        data.setValueTextSize(11f)
+        data.setValueTextColor(Color.WHITE)
+
+        binding.pcHomeWinsDrawsAwayWins.data = data
+
     }
 }
