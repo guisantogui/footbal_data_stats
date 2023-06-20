@@ -9,9 +9,11 @@ import com.curuto.footballdata.databinding.ActivityChampionshipDetailBinding
 import com.curuto.footballdata.repository.realm.DaggerRealmComponent
 import com.curuto.footballdata.utils.EXTRA_ID
 import com.curuto.footballdata.utils.logD
+import com.curuto.footballdata.utils.showSnackbar
 import com.curuto.footballdata.view.championship_detail.adapter.TeamListAdapter
 import com.curuto.footballdata.view.championship_detail.adapter.TeamListModule
 import com.curuto.footballdata.view.championship_detail.view_model.ChampionshipDetailViewModel
+import com.curuto.footballdata.view.main_activity.view_model.ChampionshipViewModel
 import com.github.mikephil.charting.data.PieEntry
 import java.util.*
 import javax.inject.Inject
@@ -21,6 +23,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.google.android.material.snackbar.Snackbar
 
 
 class ChampionshipDetailActivity : AppCompatActivity() {
@@ -28,6 +31,7 @@ class ChampionshipDetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityChampionshipDetailBinding
 
     @Inject lateinit var championshipDetailViewModel: ChampionshipDetailViewModel
+    @Inject lateinit var championshipViewModel: ChampionshipViewModel
     @Inject lateinit var teamListAdapter: TeamListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,8 +49,6 @@ class ChampionshipDetailActivity : AppCompatActivity() {
 
         binding.rvTeamList.adapter = teamListAdapter
         binding.rvTeamList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-
 
         binding.pcHomeWinsDrawsAwayWins.setUsePercentValues(true);
         binding.pcHomeWinsDrawsAwayWins.description.isEnabled = false;
@@ -84,6 +86,17 @@ class ChampionshipDetailActivity : AppCompatActivity() {
             binding.tvTotalMatches.text = totalMatches.toString()
             binding.tvAverageGoals.text = avgGoals.toString()
             binding.tvTotalGoals.text = allGoals.toString()
+        }
+        else{
+
+            val championship = championshipDetailViewModel.getChampionship()
+            if(championship != null) {
+                showSnackbar(binding.root, "Este campeonato ainda não possui dados, o download começou agora")
+                championshipViewModel.donwloadChampionshipData(championship, this)
+            }
+            else{
+                showSnackbar(binding.root, "Tivemos um problema ao baixar os dados deste campeonato")
+            }
         }
 
         val a = PieEntry(30f)

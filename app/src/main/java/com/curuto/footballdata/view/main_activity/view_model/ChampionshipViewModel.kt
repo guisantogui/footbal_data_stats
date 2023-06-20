@@ -38,13 +38,6 @@ class ChampionshipViewModel @Inject constructor() {
         return seasons
     }
 
-    fun addChampionship(name: String) {
-        /*realm.executeTransactionAsync{
-            it.insert(Championship(name, "", UUID.randomUUID().toString()))
-        }*/
-    }
-
-
     fun donwloadChampionshipData(championship: Championship, context: Context): Boolean {
         var donwloadQueued = false
 

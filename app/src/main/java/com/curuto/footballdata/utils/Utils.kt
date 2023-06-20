@@ -56,6 +56,10 @@ fun showSnackbar(v: View, message: String, length: Int){
     Snackbar.make(v, message, length).show()
 }
 
+fun showSnackbar(v: View, message: String){
+    Snackbar.make(v, message, Snackbar.LENGTH_SHORT).show()
+}
+
 fun hasPermission(context: Context, permission: String) : Boolean{
     return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
 }

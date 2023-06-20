@@ -40,6 +40,12 @@ class ChampionshipRepository @Inject constructor() {
         return championship
     }
 
+    fun getChampionshipById(realm: Realm, championshipId: UUID): Championship? {
+        val championship = realm.where(Championship::class.java).equalTo("id", championshipId).findFirst()
+
+        return championship
+    }
+
     fun getTeamsByChampionshipCode(realm: Realm, championshipCode: String): List<Team>{
         val champ = realm.where(Championship::class.java)
                     .equalTo("code", championshipCode).findFirst()
