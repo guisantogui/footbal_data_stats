@@ -1,4 +1,6 @@
-App para estatísticas esportivas
+App criado para prova de conceito, os itens que foram estudados nesse app foram:
 
-Esportes:
-- Futebol
+- Download de arquivos usando DownloadManager
+- Controle de dependências usando Dagger
+- Gerenciamento de notificações
+- Conversão de arquivos .csv
